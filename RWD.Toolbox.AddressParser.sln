@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RWD.Toolbox.AddressParser.Shared", "RWD.Toolbox.AddressParser.Shared\RWD.Toolbox.AddressParser.Shared.vbproj", "{A3BF452F-12A6-44F2-8AC7-529F1C3617A1}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RWD.Toolbox.AddressParser", "RWD.Toolbox.AddressParser\RWD.Toolbox.AddressParser.vbproj", "{8D58087B-DC73-43E5-B1A3-B29CFF0C7934}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RWD.Toolbox.AddressParser.Demo", "RWD.Toolbox.AddressParser.Demo\RWD.Toolbox.AddressParser.Demo.vbproj", "{6F17A340-886D-4DA6-9A9B-009FC057C939}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RWD.Toolbox.AddressParser.Test", "RWD.Toolbox.AddressParser.Test\RWD.Toolbox.AddressParser.Test.vbproj", "{C5031930-4211-4A9E-900E-8DC145A76126}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "RWD.Toolbox.AddressParser.Documentation", "RWD.Toolbox.AddressParser.Documentation\RWD.Toolbox.AddressParser.Documentation.shfbproj", "{A943A35B-2D51-4A00-919C-07B02773DE05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D13061B-99A3-4BB1-B997-0B823395A0B3}"
+	ProjectSection(SolutionItems) = preProject
+		SharedAssemblyInfo.vb = SharedAssemblyInfo.vb
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3BF452F-12A6-44F2-8AC7-529F1C3617A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3BF452F-12A6-44F2-8AC7-529F1C3617A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3BF452F-12A6-44F2-8AC7-529F1C3617A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3BF452F-12A6-44F2-8AC7-529F1C3617A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D58087B-DC73-43E5-B1A3-B29CFF0C7934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D58087B-DC73-43E5-B1A3-B29CFF0C7934}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D58087B-DC73-43E5-B1A3-B29CFF0C7934}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D58087B-DC73-43E5-B1A3-B29CFF0C7934}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F17A340-886D-4DA6-9A9B-009FC057C939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F17A340-886D-4DA6-9A9B-009FC057C939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F17A340-886D-4DA6-9A9B-009FC057C939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F17A340-886D-4DA6-9A9B-009FC057C939}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5031930-4211-4A9E-900E-8DC145A76126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5031930-4211-4A9E-900E-8DC145A76126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5031930-4211-4A9E-900E-8DC145A76126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5031930-4211-4A9E-900E-8DC145A76126}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A943A35B-2D51-4A00-919C-07B02773DE05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A943A35B-2D51-4A00-919C-07B02773DE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A943A35B-2D51-4A00-919C-07B02773DE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A943A35B-2D51-4A00-919C-07B02773DE05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		BuildVersion_UpdateAssemblyVersion = False
+		BuildVersion_UseGlobalSettings = False
+		BuildVersion_DetectChanges = False
+		BuildVersion_BuildVersioningStyle = None.None.Increment.Increment
+		BuildVersion_AssemblyInfoFilename = SharedAssemblyInfo.vb
+		BuildVersion_StartDate = 2000/1/1
+		BuildVersion_UpdateFileVersion = False
+	EndGlobalSection
+EndGlobal

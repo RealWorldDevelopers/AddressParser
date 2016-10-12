@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="a2855f73-2b89-47cc-b4af-106e90ea6dd1" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>The topics in this section describe the various changes made to the Address Parser over the
+life of the project.</para>
+		</introduction>
+
+		<section>
+			<title>Version History</title>
+			<content>
+				<para>Select a version below to see a description of its changes.</para>
+
+				<list class="bullet">
+					<listItem>
+						<para><link xlink:href="f782f4cf-4b10-49c2-b2c7-defcae2c1162" /></para>
+					</listItem>
+
+          <!--
+					<listItem>
+						<para>[TODO: Add links to each specific version page]</para>
+					</listItem>
+          -->
+
+				</list>
+
+			</content>
+		</section>
+
+		<relatedTopics>
+			<link xlink:href="e162e32e-ad3e-4316-8573-3a8616484bae" />
+		</relatedTopics>
+
+	</developerConceptualDocument>
+</topic>
