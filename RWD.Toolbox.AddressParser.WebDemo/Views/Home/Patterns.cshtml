@@ -1,0 +1,97 @@
+﻿@model RWD.Toolbox.Strings.Address.Demo.Models.PatternsViewModel
+
+<div class="text-center">
+   <h1 class="display-4">Patterns</h1>
+
+   <div>
+      <div><a name="export" data-content="AddressPattern" href="#" download="export.txt">Final Address Pattern</a></div>
+      <textarea asp-for="AddressPattern" rows="20"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="POBoxPattern" href="#" download="export.txt">PO Box Pattern</a></div>
+      <textarea asp-for="POBoxPattern" rows="5"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="NumberPattern" href="#" download="export.txt">Street Number Pattern</a></div>
+      <textarea asp-for="NumberPattern" rows="5"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="DirectionStreetPattern" href="#" download="export.txt">Directional Street Pattern</a></div>
+      <textarea asp-for="DirectionStreetPattern" rows="20"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="StreetPattern" href="#" download="export.txt">Street Pattern</a></div>
+      <textarea asp-for="StreetPattern" rows="20"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="SuffixPattern" href="#" download="export.txt">Suffix Pattern</a></div>
+      <textarea asp-for="SuffixPattern" rows="20"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="DirectionalPattern" href="#" download="export.txt">Directional Pattern</a></div>
+      <textarea asp-for="DirectionalPattern" rows="5"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="AllSecondaryUnitPattern" href="#" download="export.txt">All Secondary Units Pattern</a></div>
+      <textarea asp-for="AllSecondaryUnitPattern" rows="15"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="RangedSecondaryUnitPattern" href="#" download="export.txt">Ranged Secondary Unit Pattern</a></div>
+      <textarea asp-for="RangedSecondaryUnitPattern" rows="5"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="RangelessSecondaryUnitPattern" href="#" download="export.txt">Range-less Secondary Unit Pattern</a></div>
+      <textarea asp-for="RangelessSecondaryUnitPattern" rows="5"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="CityAndStatePattern" href="#" download="export.txt">City State Pattern</a></div>
+      <textarea asp-for="CityAndStatePattern" rows="20"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="PlacePattern" href="#" download="export.txt">Place Pattern</a></div>
+      <textarea asp-for="PlacePattern" rows="20"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="StatePattern" href="#" download="export.txt">State Pattern</a></div>
+      <textarea asp-for="StatePattern" rows="16"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="PostalCodePattern" href="#" download="export.txt">Postal Code Pattern</a></div>
+      <textarea asp-for="PostalCodePattern" rows="6"></textarea>
+   </div>
+   <br />
+   <div>
+      <div><a name="export" data-content="CountryPattern" href="#" download="export.txt">Country Pattern</a></div>
+      <textarea asp-for="CountryPattern" rows="20"></textarea>
+   </div>
+
+</div>
+
+@section scripts{
+   <script type="text/javascript">
+
+      $(document).ready(function () {
+
+         $('a[name=export]').click(function () {
+            var container = $('#' + this.dataset.content);
+            this.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(container.val());
+            this.download = this.dataset.content + '.txt';          
+         });
+        
+      });
+
+   </script>
+}

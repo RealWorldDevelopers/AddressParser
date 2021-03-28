@@ -7,7 +7,7 @@ End Class
 
 
 ''' <summary>
-''' An entity DTO for Terms Commanly Used for Postal Countries
+''' An entity DTO for Terms Commonly Used for Postal Countries
 ''' </summary>
 Public Class CountryAlias
     Implements ICodeAlias

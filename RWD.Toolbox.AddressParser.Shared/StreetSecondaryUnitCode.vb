@@ -11,7 +11,7 @@ Public Class StreetSecondaryUnitCode
 End Class
 
 ''' <summary>
-''' An entity DTO for Terms Commanly Used for Postal Secondary Units
+''' An entity DTO for Terms Commonly Used for Postal Secondary Units
 ''' </summary>
 Public Class StreetSecondaryUnitAlias
     Implements ICodeAlias

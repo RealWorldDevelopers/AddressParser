@@ -117,11 +117,11 @@ Public Class Factory
         Return MasterCodeSet.CountryAliases
     End Function
 
-    ''' <summary>
-    ''' List of Zipcode Codes Needed for Address Control to Function
-    ''' </summary>
-    ''' <returns>List of Codes as <see cref="List(Of ZipcodeCode)"/></returns>
-    Public Function CreateZipcodeCodes() As List(Of ZipcodeCode)
+   ''' <summary>
+   ''' List of Zip Code Codes Needed for Address Control to Function
+   ''' </summary>
+   ''' <returns>List of Codes as <see cref="List(Of ZipcodeCode)"/></returns>
+   Public Function CreateZipcodeCodes() As List(Of ZipcodeCode)
         Return MasterCodeSet.ZipcodeCodes
     End Function
 

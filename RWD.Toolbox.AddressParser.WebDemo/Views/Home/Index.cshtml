@@ -1,0 +1,26 @@
+﻿@model RWD.Toolbox.Strings.Address.Demo.Models.IndexViewModel
+
+<div class="text-center">
+   <h1 class="display-4">Welcome</h1>
+   <form asp-action="Parse" asp-controller="Home" method="post">
+
+      <div>Input String</div>
+      <div>
+         <input asp-for="InputString" type="text" />
+      </div>
+
+      <br />
+
+      <div>
+         <input type="submit" />
+      </div>
+
+      <br />
+
+      <div>
+         <textarea asp-for="Result" rows="20"></textarea>
+      </div>
+
+   </form>
+
+</div>

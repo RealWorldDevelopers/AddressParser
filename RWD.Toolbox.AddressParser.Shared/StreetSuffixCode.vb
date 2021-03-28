@@ -6,7 +6,7 @@ Public Class StreetSuffixCode
 End Class
 
 ''' <summary>
-''' An entity DTO for Terms Commanly Used for Postal Street Suffixes
+''' An entity DTO for Terms Commonly Used for Postal Street Suffixes
 ''' </summary>
 Public Class StreetSuffixAlias
     Implements ICodeAlias

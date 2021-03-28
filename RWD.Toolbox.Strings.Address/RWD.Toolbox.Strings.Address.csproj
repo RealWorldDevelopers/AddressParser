@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RWD.Toolbox.Strings.Address.Common\RWD.Toolbox.Strings.Address.Common.csproj" />
+  </ItemGroup>
+
+</Project>

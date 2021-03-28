@@ -39,7 +39,7 @@ End Class
 
 
 ''' <summary>
-''' An entity DTO for Terms Commanly Used for Postal States
+''' An entity DTO for Terms Commonly Used for Postal States
 ''' </summary>
 Public Class StateAlias
     Implements ICodeAlias
