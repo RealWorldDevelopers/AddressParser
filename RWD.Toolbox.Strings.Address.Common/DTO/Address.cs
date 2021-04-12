@@ -21,9 +21,7 @@ namespace RWD.Toolbox.Strings.Address.Common.DTO
       /// <inheritdoc/>
       public string POBoxNumber { get; set; }
       /// <inheritdoc/>
-      public string City { get; set; }
-      /// <inheritdoc/>
-      public string County { get; set; }
+      public string City { get; set; }  
       /// <inheritdoc/>
       public string State { get; set; }
       /// <inheritdoc/>

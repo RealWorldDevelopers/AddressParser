@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using RWD.Toolbox.Strings.Address.Common.DTO;
 
-// TODO needed?
-// Set defaults then fill from WWW option ?
 
 /// <summary>
 /// Set of Codes Needed for Address Control to Function
@@ -13,161 +11,87 @@ public sealed class MasterCodeSet : IMasterCodeSet
    /// <inheritdoc/>
    public List<DirectionalCode> DirectionalCodes
    {
-      get
-      {
-         return DirectionalTable;
-      }
-      set
-      {
-         DirectionalTable = value;
-      }
+      get { return DirectionalTable; }
    }
 
    /// <inheritdoc/>
    public List<DirectionalAlias> DirectionalAliases
    {
-      get
-      {
-         return DirectionalAliasesTable;
-      }
-      set
-      {
-         DirectionalAliasesTable = value;
-      }
+      get { return DirectionalAliasesTable; }
    }
 
    /// <inheritdoc/>
    public List<StreetSuffixCode> StreetSuffixCodes
    {
-      get
-      {
-         return StreetSuffixTable;
-      }
-      set
-      {
-         StreetSuffixTable = value;
-      }
+      get { return StreetSuffixTable; }
    }
 
    /// <inheritdoc/>
    public List<StreetSuffixAlias> StreetSuffixAliases
    {
-      get
-      {
-         return StreetSuffixAliasTable;
-      }
-      set
-      {
-         StreetSuffixAliasTable = value;
-      }
+      get { return StreetSuffixAliasTable; }
    }
 
    /// <inheritdoc/>
    public List<StreetSecondaryUnitCode> StreetSecondaryUnitCodes
    {
-      get
-      {
-         return StreetSecondaryUnitTable;
-      }
-      set
-      {
-         StreetSecondaryUnitTable = value;
-      }
+      get { return StreetSecondaryUnitTable; }
    }
 
    /// <inheritdoc/>
    public List<StreetSecondaryUnitAlias> StreetSecondaryUnitAliases
    {
-      get
-      {
-         return StreetSecondaryUnitAliasTable;
-      }
-      set
-      {
-         StreetSecondaryUnitAliasTable = value;
-      }
-   }
-
-   /// <inheritdoc/>
-   public List<CountyCode> CountyCodes
-   {
-      get
-      {
-         return CountyTable;
-      }
-      set
-      {
-         CountyTable = value;
-      }
+      get { return StreetSecondaryUnitAliasTable; }
    }
 
    /// <inheritdoc/>
    public List<StateCode> StateCodes
    {
-      get
-      {
-         return StateTable;
-      }
-      set
-      {
-         StateTable = value;
-      }
+      get { return StateTable; }
    }
 
    /// <inheritdoc/>
    public List<StateAlias> StateAliases
    {
-      get
-      {
-         return StateAbrvLegacyTable;
-      }
-      set
-      {
-         StateAbrvLegacyTable = value;
-      }
+      get { return StateAbrvLegacyTable; }
    }
 
    /// <inheritdoc/>
    public List<CountryCode> CountryCodes
    {
-      get
-      {
-         return CountryTable;
-      }
-      set
-      {
-         CountryTable = value;
-      }
+      get { return CountryTable; }
    }
 
    /// <inheritdoc/>
    public List<CountryAlias> CountryAliases
    {
-      get
-      {
-         return CountryAliasTable;
-      }
-      set
-      {
-         CountryAliasTable = value;
-      }
+      get { return CountryAliasTable; }
    }
 
-   /// <inheritdoc/>
-   public List<PostalCode> ZipCodes
-   {
-      get
-      {
-         return ZipCodeTable;
-      }
-      set
-      {
-         ZipCodeTable = value;
-      }
-   }
 
-   
-   private List<StreetSuffixCode> StreetSuffixTable = new List<StreetSuffixCode>(new StreetSuffixCode[] {
+   private readonly List<DirectionalCode> DirectionalTable = new List<DirectionalCode>(new DirectionalCode[] {
+        new DirectionalCode() { Id = 1, Code = "N", Description = "NORTH" },
+        new DirectionalCode() { Id = 2, Code = "NE", Description = "NORTHEAST" },
+        new DirectionalCode() { Id = 3, Code = "E", Description = "EAST" },
+        new DirectionalCode() { Id = 4, Code = "SE", Description = "SOUTHEAST" },
+        new DirectionalCode() { Id = 5, Code = "S", Description = "SOUTH" },
+        new DirectionalCode() { Id = 6, Code = "SW", Description = "SOUTHWEST" },
+        new DirectionalCode() { Id = 7, Code = "W", Description = "WEST" },
+        new DirectionalCode() { Id = 8, Code = "NW", Description = "NORTHWEST" }
+    });
+
+   private readonly List<DirectionalAlias> DirectionalAliasesTable = new List<DirectionalAlias>(new DirectionalAlias[] {
+        new DirectionalAlias() { Id = 1, AliasName = "N.", ForeignId = 1 },
+        new DirectionalAlias() { Id = 2, AliasName = "N.E.", ForeignId = 2 },
+        new DirectionalAlias() { Id = 3, AliasName = "E.", ForeignId = 3 },
+        new DirectionalAlias() { Id = 4, AliasName = "S.E.", ForeignId = 4 },
+        new DirectionalAlias() { Id = 5, AliasName = "S.", ForeignId = 5 },
+        new DirectionalAlias() { Id = 6, AliasName = "S.W.", ForeignId = 6 },
+        new DirectionalAlias() { Id = 7, AliasName = "W.", ForeignId = 7 },
+        new DirectionalAlias() { Id = 8, AliasName = "N.W.", ForeignId = 8 }
+    });
+
+   private readonly List<StreetSuffixCode> StreetSuffixTable = new List<StreetSuffixCode>(new StreetSuffixCode[] {
         new StreetSuffixCode() { Id = 1, Code = "ALY", Description = "ALLEY" },
         new StreetSuffixCode() { Id = 2, Code = "ANX", Description = "ANEX" },
         new StreetSuffixCode() { Id = 3, Code = "ARC", Description = "ARCADE" },
@@ -371,7 +295,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new StreetSuffixCode() { Id = 201, Code = "WLS", Description = "WELLS" }
     });
 
-   private List<StreetSuffixAlias> StreetSuffixAliasTable = new List<StreetSuffixAlias>(new StreetSuffixAlias[] {
+   private readonly List<StreetSuffixAlias> StreetSuffixAliasTable = new List<StreetSuffixAlias>(new StreetSuffixAlias[] {
         new StreetSuffixAlias() { Id = 1, ForeignId = 1, AliasName = "ALLEE" },
         new StreetSuffixAlias() { Id = 2, ForeignId = 1, AliasName = "ALLY" },
         new StreetSuffixAlias() { Id = 3, ForeignId = 2, AliasName = "ANNEX" },
@@ -556,12 +480,11 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new StreetSuffixAlias() { Id = 183, ForeignId = 195, AliasName = "VSTA" }
     });
 
-
-   private List<StreetSecondaryUnitAlias> StreetSecondaryUnitAliasTable = new List<StreetSecondaryUnitAlias>(new StreetSecondaryUnitAlias[] {
+   private readonly List<StreetSecondaryUnitAlias> StreetSecondaryUnitAliasTable = new List<StreetSecondaryUnitAlias>(new StreetSecondaryUnitAlias[] {
         new StreetSecondaryUnitAlias() { Id = 1, AliasName = "APPARTMENT", ForeignId = 2 }
     });
 
-   private List<StreetSecondaryUnitCode> StreetSecondaryUnitTable = new List<StreetSecondaryUnitCode>(new StreetSecondaryUnitCode[] {
+   private readonly List<StreetSecondaryUnitCode> StreetSecondaryUnitTable = new List<StreetSecondaryUnitCode>(new StreetSecondaryUnitCode[] {
         new StreetSecondaryUnitCode() { Id = 1, Description = "SUITE", Code = "STE", RequiresRange = true },
         new StreetSecondaryUnitCode() { Id = 2, Description = "APARTMENT", Code = "APT", RequiresRange = true },
         new StreetSecondaryUnitCode() { Id = 3, Description = "DEPARTMENT", Code = "DEPT", RequiresRange = true },
@@ -589,8 +512,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new StreetSecondaryUnitCode() { Id = 25, Description = "UPPER", Code = "UPPR", RequiresRange = false }
     });
 
-
-   private List<StateCode> StateTable = new List<StateCode>(new StateCode[] {
+   private readonly List<StateCode> StateTable = new List<StateCode>(new StateCode[] {
         new StateCode() { Id = 2, Code = "AB", CountryCodeId = 37, Description = "ALBERTA" },
         new StateCode() { Id = 3, Code = "BC", CountryCodeId = 37, Description = "BRITISH COLUMBIA" },
         new StateCode() { Id = 4, Code = "MB", CountryCodeId = 37, Description = "MANITOBA" },
@@ -598,7 +520,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new StateCode() { Id = 6, Code = "NL", CountryCodeId = 37, Description = "NEWFOUNDLAND AND LABRADOR" },
         new StateCode() { Id = 7, Code = "NS", CountryCodeId = 37, Description = "NOVA SCOTIA" },
         new StateCode() { Id = 8, Code = "NT", CountryCodeId = 37, Description = "NORTHWEST TERRITORIES" },
-        new StateCode() { Id = 9, Code = "NU", CountryCodeId = 37, Description = "NUNAVUT" },
+        new StateCode() { Id = 9, Code = "NU", CountryCodeId = 37, Description = "NUNAVUT TERRITORY" },
         new StateCode() { Id = 10, Code = "ON", CountryCodeId = 37, Description = "ONTARIO" },
         new StateCode() { Id = 11, Code = "PE", CountryCodeId = 37, Description = "PRINCE EDWARD ISLAND" },
         new StateCode() { Id = 12, Code = "QC", CountryCodeId = 37, Description = "QUEBEC" },
@@ -665,7 +587,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new StateCode() { Id = 74, Code = "VI", CountryCodeId = 226, Description = "VIRGIN ISLANDS" }
     });
 
-   private List<StateAlias> StateAbrvLegacyTable = new List<StateAlias>(new StateAlias[] {
+   private readonly List<StateAlias> StateAbrvLegacyTable = new List<StateAlias>(new StateAlias[] {
         new StateAlias() { Id = 1,  ForeignId = 15, AliasName = "ARIZ" },
         new StateAlias() { Id = 2,  ForeignId = 17, AliasName = "ARK" },
         new StateAlias() { Id = 3,  ForeignId = 19, AliasName = "CAL" },
@@ -700,427 +622,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new StateAlias() { Id = 31,  ForeignId = 65, AliasName = "WYO" }
     });
 
-   private List<DirectionalAlias> DirectionalAliasesTable = new List<DirectionalAlias>(new DirectionalAlias[] {
-        new DirectionalAlias() { Id = 1, AliasName = "N.", ForeignId = 1 },
-        new DirectionalAlias() { Id = 2, AliasName = "N.E.", ForeignId = 2 },
-        new DirectionalAlias() { Id = 3, AliasName = "E.", ForeignId = 3 },
-        new DirectionalAlias() { Id = 4, AliasName = "S.E.", ForeignId = 4 },
-        new DirectionalAlias() { Id = 5, AliasName = "S.", ForeignId = 5 },
-        new DirectionalAlias() { Id = 6, AliasName = "S.W.", ForeignId = 6 },
-        new DirectionalAlias() { Id = 7, AliasName = "W.", ForeignId = 7 },
-        new DirectionalAlias() { Id = 8, AliasName = "N.W.", ForeignId = 8 }
-    });
-
-   private List<DirectionalCode> DirectionalTable = new List<DirectionalCode>(new DirectionalCode[] {
-        new DirectionalCode() { Id = 1, Code = "N", Description = "NORTH" },
-        new DirectionalCode() { Id = 2, Code = "NE", Description = "NORTHEAST" },
-        new DirectionalCode() { Id = 3, Code = "E", Description = "EAST" },
-        new DirectionalCode() { Id = 4, Code = "SE", Description = "SOUTHEAST" },
-        new DirectionalCode() { Id = 5, Code = "S", Description = "SOUTH" },
-        new DirectionalCode() { Id = 6, Code = "SW", Description = "SOUTHWEST" },
-        new DirectionalCode() { Id = 7, Code = "W", Description = "WEST" },
-        new DirectionalCode() { Id = 8, Code = "NW", Description = "NORTHWEST" }
-    });
-
-
-   // TODO rebuild list
-   private List<CountyCode> CountyTable = new List<CountyCode>(new CountyCode[] {
-        new CountyCode() { Id = 1,  Description = "ADAMS" },
-        new CountyCode() { Id = 2,  Description = "ALLEN" },
-        new CountyCode() { Id = 3,  Description = "BARTHOLOMEW" },
-        new CountyCode() { Id = 4,  Description = "BENTON" },
-        new CountyCode() { Id = 5,  Description = "BLACKFORD" },
-        new CountyCode() { Id = 6,  Description = "BOONE" },
-        new CountyCode() { Id = 7,  Description = "BROWN" },
-        new CountyCode() { Id = 8,  Description = "CARROLL" },
-        new CountyCode() { Id = 9,  Description = "CASS" },
-        new CountyCode() { Id = 10,  Description = "CLARK" },
-        new CountyCode() { Id = 11,  Description = "CLAY" },
-        new CountyCode() { Id = 12,  Description = "CLINTON" },
-        new CountyCode() { Id = 13,  Description = "CRAWFORD" },
-        new CountyCode() { Id = 14,  Description = "DAVIESS" },
-        new CountyCode() { Id = 15,  Description = "DEARBORN" },
-        new CountyCode() { Id = 16,  Description = "DECATUR" },
-        new CountyCode() { Id = 17,  Description = "DEKALB" },
-        new CountyCode() { Id = 18,  Description = "DELAWARE" },
-        new CountyCode() { Id = 19,  Description = "DUBOIS" },
-        new CountyCode() { Id = 20,  Description = "ELKHART" },
-        new CountyCode() { Id = 21,  Description = "FAYETTE" },
-        new CountyCode() { Id = 22,  Description = "FLOYD" },
-        new CountyCode() { Id = 23,  Description = "FOUNTAIN" },
-        new CountyCode() { Id = 24,  Description = "FRANKLIN" },
-        new CountyCode() { Id = 25,  Description = "FULTON" },
-        new CountyCode() { Id = 26,  Description = "GIBSON" },
-        new CountyCode() { Id = 27,  Description = "GRANT" },
-        new CountyCode() { Id = 28,  Description = "GREENE" },
-        new CountyCode() { Id = 29,  Description = "HAMILTON" },
-        new CountyCode() { Id = 30,  Description = "HANCOCK" },
-        new CountyCode() { Id = 31,  Description = "HARRISON" },
-        new CountyCode() { Id = 32,  Description = "HENDRICKS" },
-        new CountyCode() { Id = 33,  Description = "HENRY" },
-        new CountyCode() { Id = 34,  Description = "HOWARD" },
-        new CountyCode() { Id = 35,  Description = "HUNTINGTON" },
-        new CountyCode() { Id = 36,  Description = "JACKSON" },
-        new CountyCode() { Id = 37,  Description = "JASPER" },
-        new CountyCode() { Id = 38,  Description = "JAY" },
-        new CountyCode() { Id = 39,  Description = "JEFFERSON" },
-        new CountyCode() { Id = 40,  Description = "JENNINGS" },
-        new CountyCode() { Id = 41,  Description = "JOHNSON" },
-        new CountyCode() { Id = 42,  Description = "KNOX" },
-        new CountyCode() { Id = 43,  Description = "KOSCIUSKO" },
-        new CountyCode() { Id = 44,  Description = "LAGRANGE" },
-        new CountyCode() { Id = 45,  Description = "LAKE" },
-        new CountyCode() { Id = 46,  Description = "LAPORTE" },
-        new CountyCode() { Id = 47,  Description = "LAWRENCE" },
-        new CountyCode() { Id = 48,  Description = "MADISON" },
-        new CountyCode() { Id = 49,  Description = "MARION" },
-        new CountyCode() { Id = 50,  Description = "MARSHALL" },
-        new CountyCode() { Id = 51,  Description = "MARTIN" },
-        new CountyCode() { Id = 52,  Description = "MIAMI" },
-        new CountyCode() { Id = 53,  Description = "MONROE" },
-        new CountyCode() { Id = 54,  Description = "MONTGOMERY" },
-        new CountyCode() { Id = 55,  Description = "MORGAN" },
-        new CountyCode() { Id = 56,  Description = "NEWTON" },
-        new CountyCode() { Id = 57,  Description = "NOBLE" },
-        new CountyCode() { Id = 58,  Description = "OHIO" },
-        new CountyCode() { Id = 59,  Description = "ORANGE" },
-        new CountyCode() { Id = 60,  Description = "OWEN" },
-        new CountyCode() { Id = 61,  Description = "PARKE" },
-        new CountyCode() { Id = 62,  Description = "PERRY" },
-        new CountyCode() { Id = 63,  Description = "PIKE" },
-        new CountyCode() { Id = 64,  Description = "PORTER" },
-        new CountyCode() { Id = 65,  Description = "POSEY" },
-        new CountyCode() { Id = 66,  Description = "PULASKI" },
-        new CountyCode() { Id = 67,  Description = "PUTNAM" },
-        new CountyCode() { Id = 68,  Description = "RANDOLPH" },
-        new CountyCode() { Id = 69,  Description = "RIPLEY" },
-        new CountyCode() { Id = 70,  Description = "RUSH" },
-        new CountyCode() { Id = 71,  Description = "ST. JOSEPH" },
-        new CountyCode() { Id = 72,  Description = "SCOTT" },
-        new CountyCode() { Id = 73,  Description = "SHELBY" },
-        new CountyCode() { Id = 74,  Description = "SPENCER" },
-        new CountyCode() { Id = 75,  Description = "STARKE" },
-        new CountyCode() { Id = 76,  Description = "STEUBEN" },
-        new CountyCode() { Id = 77,  Description = "SULLIVAN" },
-        new CountyCode() { Id = 78,  Description = "SWITZERLAND" },
-        new CountyCode() { Id = 79,  Description = "TIPPECANOE" },
-        new CountyCode() { Id = 80,  Description = "TIPTON" },
-        new CountyCode() { Id = 81,  Description = "UNION" },
-        new CountyCode() { Id = 82,  Description = "VANDERBURGH" },
-        new CountyCode() { Id = 83,  Description = "VERMILLION" },
-        new CountyCode() { Id = 84,  Description = "VIGO" },
-        new CountyCode() { Id = 85,  Description = "WABASH" },
-        new CountyCode() { Id = 86,  Description = "WARREN" },
-        new CountyCode() { Id = 87,  Description = "WARRICK" },
-        new CountyCode() { Id = 88,  Description = "WASHINGTON" },
-        new CountyCode() { Id = 89,  Description = "WAYNE" },
-        new CountyCode() { Id = 90,  Description = "WELLS" },
-        new CountyCode() { Id = 91,  Description = "WHITE" },
-        new CountyCode() { Id = 92,  Description = "WHITLEY" },
-        new CountyCode() { Id = 93,  Description = "ACADIA PARISH" },
-        new CountyCode() { Id = 94,  Description = "ALLEN PARISH" },
-        new CountyCode() { Id = 95,  Description = "ASCENSION PARISH" },
-        new CountyCode() { Id = 96,  Description = "ASSUMPTION PARISH" },
-        new CountyCode() { Id = 97,  Description = "AVOYELLES PARISH" },
-        new CountyCode() { Id = 98,  Description = "BEAUREGARD PARISH" },
-        new CountyCode() { Id = 99,  Description = "BIENVILLE PARISH" },
-        new CountyCode() { Id = 100,  Description = "BOSSIER PARISH" },
-        new CountyCode() { Id = 101,  Description = "CADDO PARISH" },
-        new CountyCode() { Id = 102,  Description = "CALCASIEU PARISH" },
-        new CountyCode() { Id = 103,  Description = "CALDWELL PARISH" },
-        new CountyCode() { Id = 104,  Description = "CAMERON PARISH" },
-        new CountyCode() { Id = 105,  Description = "CATAHOULA PARISH" },
-        new CountyCode() { Id = 106,  Description = "CLAIBORNE PARISH" },
-        new CountyCode() { Id = 107,  Description = "CONCORDIA PARISH" },
-        new CountyCode() { Id = 108,  Description = "DESOTO PARISH" },
-        new CountyCode() { Id = 109,  Description = "EAST BATON ROUGE PARISH" },
-        new CountyCode() { Id = 110,  Description = "EAST CARROLL PARISH" },
-        new CountyCode() { Id = 111,  Description = "EAST FELICIANA PARISH" },
-        new CountyCode() { Id = 112,  Description = "EVANGELINE PARISH" },
-        new CountyCode() { Id = 113,  Description = "FRANKLIN PARISH" },
-        new CountyCode() { Id = 114,  Description = "GRANT PARISH" },
-        new CountyCode() { Id = 115,  Description = "IBERIA PARISH" },
-        new CountyCode() { Id = 116,  Description = "IBERVILLE PARISH" },
-        new CountyCode() { Id = 117,  Description = "JACKSON PARISH" },
-        new CountyCode() { Id = 118,  Description = "JEFFERSON DAVIS PARISH" },
-        new CountyCode() { Id = 119,  Description = "JEFFERSON PARISH" },
-        new CountyCode() { Id = 120,  Description = "LAFAYETE PARISH" },
-        new CountyCode() { Id = 121,  Description = "LAFOURCHE PARISH" },
-        new CountyCode() { Id = 122,  Description = "LASALLE PARISH" },
-        new CountyCode() { Id = 123,  Description = "LINCOLN PARISH" },
-        new CountyCode() { Id = 124,  Description = "LIVINGSTON PARISH" },
-        new CountyCode() { Id = 125,  Description = "MADISON PARISH" },
-        new CountyCode() { Id = 126,  Description = "MOREHOUSE PARSIH" },
-        new CountyCode() { Id = 127,  Description = "NATCHITOCHES PARISH" },
-        new CountyCode() { Id = 128,  Description = "ORLEANS PARISH" },
-        new CountyCode() { Id = 129,  Description = "OUACHITA PARISH" },
-        new CountyCode() { Id = 130,  Description = "PLAQUEMINES PARISH" },
-        new CountyCode() { Id = 131,  Description = "POINTE COUPEE PARISH" },
-        new CountyCode() { Id = 132,  Description = "RAPIDES PARISH" },
-        new CountyCode() { Id = 133,  Description = "RED RIVER PARISH" },
-        new CountyCode() { Id = 134,  Description = "RICHLAND PARISH" },
-        new CountyCode() { Id = 135,  Description = "SABINE PARISH" },
-        new CountyCode() { Id = 136,  Description = "ST. BENARD PARISH" },
-        new CountyCode() { Id = 137,  Description = "ST. CHARLES PARISH" },
-        new CountyCode() { Id = 138,  Description = "ST. HELENA PARISH" },
-        new CountyCode() { Id = 139,  Description = "ST. JAMES PARISH" },
-        new CountyCode() { Id = 140,  Description = "ST. JOHN THE BAPTIST PARISH" },
-        new CountyCode() { Id = 141,  Description = "ST. LANDRY PARISH" },
-        new CountyCode() { Id = 142,  Description = "ST. MARTIN PARISH" },
-        new CountyCode() { Id = 143,  Description = "ST. MARY PARISH" },
-        new CountyCode() { Id = 144,  Description = "ST. TAMMANY PARISH" },
-        new CountyCode() { Id = 145,  Description = "TANGIPAHOA PARISH" },
-        new CountyCode() { Id = 146,  Description = "TENSAS PARISH" },
-        new CountyCode() { Id = 147,  Description = "TERREBONNE PARISH" },
-        new CountyCode() { Id = 148,  Description = "UNION PARISH" },
-        new CountyCode() { Id = 149,  Description = "VERMILION PARISH" },
-        new CountyCode() { Id = 150,  Description = "VERNON PARISH" },
-        new CountyCode() { Id = 151,  Description = "WASHINGTON PARISH" },
-        new CountyCode() { Id = 152,  Description = "WEBSTER PARISH" },
-        new CountyCode() { Id = 153,  Description = "WEST BATON ROUGE PARISH" },
-        new CountyCode() { Id = 154,  Description = "WEST CARROLL PARISH" },
-        new CountyCode() { Id = 155,  Description = "WEST FELICIANA PARISH" },
-        new CountyCode() { Id = 156,  Description = "WINN PARISH" },
-        new CountyCode() { Id = 157,  Description = "ALCONA" },
-        new CountyCode() { Id = 158,  Description = "ALGER" },
-        new CountyCode() { Id = 159,  Description = "ALLEGAN" },
-        new CountyCode() { Id = 160,  Description = "ALPENA" },
-        new CountyCode() { Id = 161,  Description = "ANTRIM" },
-        new CountyCode() { Id = 162,  Description = "ARENAC" },
-        new CountyCode() { Id = 163,  Description = "BARAGA" },
-        new CountyCode() { Id = 164,  Description = "BARRY" },
-        new CountyCode() { Id = 165,  Description = "BAY" },
-        new CountyCode() { Id = 166,  Description = "BENZIE" },
-        new CountyCode() { Id = 167,  Description = "BERRIEN" },
-        new CountyCode() { Id = 168,  Description = "BRANCH" },
-        new CountyCode() { Id = 169,  Description = "CALHOUN" },
-        new CountyCode() { Id = 170,  Description = "CASS" },
-        new CountyCode() { Id = 171,  Description = "CHARLEVOIX" },
-        new CountyCode() { Id = 172,  Description = "CHEBOYGAN" },
-        new CountyCode() { Id = 173,  Description = "CHIPPEWA" },
-        new CountyCode() { Id = 174,  Description = "CLARE" },
-        new CountyCode() { Id = 175,  Description = "CLINTON" },
-        new CountyCode() { Id = 176,  Description = "CRAWFORD" },
-        new CountyCode() { Id = 177,  Description = "DELTA" },
-        new CountyCode() { Id = 178,  Description = "DICKINSON" },
-        new CountyCode() { Id = 179,  Description = "EATON" },
-        new CountyCode() { Id = 180,  Description = "EMMET" },
-        new CountyCode() { Id = 181,  Description = "GENESEE" },
-        new CountyCode() { Id = 182,  Description = "GLADWIN" },
-        new CountyCode() { Id = 183,  Description = "GOGEBIC" },
-        new CountyCode() { Id = 184,  Description = "GRAND" },
-        new CountyCode() { Id = 185,  Description = "GRAND TRAVERSE" },
-        new CountyCode() { Id = 186,  Description = "GRATIOT" },
-        new CountyCode() { Id = 187,  Description = "HILLSDALE" },
-        new CountyCode() { Id = 188,  Description = "HOUGHTON" },
-        new CountyCode() { Id = 189,  Description = "HURON" },
-        new CountyCode() { Id = 190,  Description = "INGHAM" },
-        new CountyCode() { Id = 191,  Description = "IONIA" },
-        new CountyCode() { Id = 192,  Description = "IOSCO" },
-        new CountyCode() { Id = 193,  Description = "IRON" },
-        new CountyCode() { Id = 194,  Description = "ISABELLA" },
-        new CountyCode() { Id = 195,  Description = "JACKSON" },
-        new CountyCode() { Id = 196,  Description = "KALAMAZOO" },
-        new CountyCode() { Id = 197,  Description = "KALKASKA" },
-        new CountyCode() { Id = 198,  Description = "KENT" },
-        new CountyCode() { Id = 199,  Description = "KEWEENAW" },
-        new CountyCode() { Id = 200,  Description = "LAKE" },
-        new CountyCode() { Id = 201,  Description = "LAPEER" },
-        new CountyCode() { Id = 202,  Description = "LEELANAU" },
-        new CountyCode() { Id = 203,  Description = "LENAWEE" },
-        new CountyCode() { Id = 204,  Description = "LIVINGSTON" },
-        new CountyCode() { Id = 205,  Description = "LUCE" },
-        new CountyCode() { Id = 206,  Description = "MACKINAC" },
-        new CountyCode() { Id = 207,  Description = "MACOMB" },
-        new CountyCode() { Id = 208,  Description = "MANISTEE" },
-        new CountyCode() { Id = 209,  Description = "MARQUETTE" },
-        new CountyCode() { Id = 210,  Description = "MASON" },
-        new CountyCode() { Id = 211,  Description = "MECOSTA" },
-        new CountyCode() { Id = 212,  Description = "MENOMINEE" },
-        new CountyCode() { Id = 213,  Description = "MIDLAND" },
-        new CountyCode() { Id = 214,  Description = "MISSAUKEE" },
-        new CountyCode() { Id = 215,  Description = "MONROE" },
-        new CountyCode() { Id = 216,  Description = "MONTCALM" },
-        new CountyCode() { Id = 217,  Description = "MONTMORENCY" },
-        new CountyCode() { Id = 218,  Description = "MUSKEGON" },
-        new CountyCode() { Id = 219,  Description = "NEWAYGO" },
-        new CountyCode() { Id = 220,  Description = "OAKLAND" },
-        new CountyCode() { Id = 221,  Description = "OCEANA" },
-        new CountyCode() { Id = 222,  Description = "OGEMAW" },
-        new CountyCode() { Id = 223,  Description = "ONTONAGON" },
-        new CountyCode() { Id = 224,  Description = "OSCEOLA" },
-        new CountyCode() { Id = 225,  Description = "OSCODA" },
-        new CountyCode() { Id = 226,  Description = "OTSEGO" },
-        new CountyCode() { Id = 227,  Description = "OTTAWA" },
-        new CountyCode() { Id = 228,  Description = "PRESQUE ISLE" },
-        new CountyCode() { Id = 229,  Description = "ROSCOMMON" },
-        new CountyCode() { Id = 230,  Description = "SAGINAW" },
-        new CountyCode() { Id = 231,  Description = "SANILAC" },
-        new CountyCode() { Id = 232,  Description = "SCHOOLCRAFT" },
-        new CountyCode() { Id = 233,  Description = "SHIAWASSEE" },
-        new CountyCode() { Id = 234,  Description = "ST. CLAIR" },
-        new CountyCode() { Id = 235,  Description = "ST. JOSEPH" },
-        new CountyCode() { Id = 236,  Description = "TUSCOLA" },
-        new CountyCode() { Id = 237,  Description = "VAN BUREN" },
-        new CountyCode() { Id = 238,  Description = "WASHIENAW" },
-        new CountyCode() { Id = 239,  Description = "WAYNE" },
-        new CountyCode() { Id = 240,  Description = "WEXFORD" },
-        new CountyCode() { Id = 241,  Description = "ADAMS" },
-        new CountyCode() { Id = 242,  Description = "ALLEN" },
-        new CountyCode() { Id = 243,  Description = "ASHLAND" },
-        new CountyCode() { Id = 244,  Description = "ASHTABULA" },
-        new CountyCode() { Id = 245,  Description = "ATHENS" },
-        new CountyCode() { Id = 246,  Description = "AUGLAIZE" },
-        new CountyCode() { Id = 247,  Description = "BELMONT" },
-        new CountyCode() { Id = 248,  Description = "BROWN" },
-        new CountyCode() { Id = 249,  Description = "BUTLER" },
-        new CountyCode() { Id = 250,  Description = "CARROLL" },
-        new CountyCode() { Id = 251,  Description = "CHAMPAIGN" },
-        new CountyCode() { Id = 252,  Description = "CLARK" },
-        new CountyCode() { Id = 253,  Description = "CLERMONT" },
-        new CountyCode() { Id = 254,  Description = "CLINTON" },
-        new CountyCode() { Id = 255,  Description = "COLUMBIANA" },
-        new CountyCode() { Id = 256,  Description = "COSHOCTON" },
-        new CountyCode() { Id = 257,  Description = "CRAWFORD" },
-        new CountyCode() { Id = 258,  Description = "CUYAHOGA" },
-        new CountyCode() { Id = 259,  Description = "DARKE" },
-        new CountyCode() { Id = 260,  Description = "DEFIANCE" },
-        new CountyCode() { Id = 261,  Description = "DELAWARE" },
-        new CountyCode() { Id = 262,  Description = "ERIE" },
-        new CountyCode() { Id = 263,  Description = "FAIRFIELD" },
-        new CountyCode() { Id = 264,  Description = "FAYETTE" },
-        new CountyCode() { Id = 265,  Description = "FRANKLIN" },
-        new CountyCode() { Id = 266,  Description = "FULTON" },
-        new CountyCode() { Id = 267,  Description = "GALLIA" },
-        new CountyCode() { Id = 268,  Description = "GEAUGA" },
-        new CountyCode() { Id = 269,  Description = "GREENE" },
-        new CountyCode() { Id = 270,  Description = "GUERNSEY" },
-        new CountyCode() { Id = 271,  Description = "HAMILTON" },
-        new CountyCode() { Id = 272,  Description = "HANCOCK" },
-        new CountyCode() { Id = 273,  Description = "HARDIN" },
-        new CountyCode() { Id = 274,  Description = "HARRISON" },
-        new CountyCode() { Id = 275,  Description = "HENRY" },
-        new CountyCode() { Id = 276,  Description = "HIGHLAND" },
-        new CountyCode() { Id = 277,  Description = "HOCKING" },
-        new CountyCode() { Id = 278,  Description = "HOLMES" },
-        new CountyCode() { Id = 279,  Description = "HURON" },
-        new CountyCode() { Id = 280,  Description = "JACKSON" },
-        new CountyCode() { Id = 281,  Description = "JEFFERSON" },
-        new CountyCode() { Id = 282,  Description = "KNOX" },
-        new CountyCode() { Id = 283,  Description = "LAKE" },
-        new CountyCode() { Id = 284,  Description = "LAWRENCE" },
-        new CountyCode() { Id = 285,  Description = "LICKING" },
-        new CountyCode() { Id = 286,  Description = "LOGAN" },
-        new CountyCode() { Id = 287,  Description = "LORAIN" },
-        new CountyCode() { Id = 288,  Description = "LUCAS" },
-        new CountyCode() { Id = 289,  Description = "MADISON" },
-        new CountyCode() { Id = 290,  Description = "MAHONING" },
-        new CountyCode() { Id = 291,  Description = "MARION" },
-        new CountyCode() { Id = 292,  Description = "MEDINA" },
-        new CountyCode() { Id = 293,  Description = "MEIGS" },
-        new CountyCode() { Id = 294,  Description = "MERCER" },
-        new CountyCode() { Id = 295,  Description = "MIAMI" },
-        new CountyCode() { Id = 296,  Description = "MONROE" },
-        new CountyCode() { Id = 297,  Description = "MONTGOMERY" },
-        new CountyCode() { Id = 298,  Description = "MORGAN" },
-        new CountyCode() { Id = 299,  Description = "MORROW" },
-        new CountyCode() { Id = 300,  Description = "MUSKINGUM" },
-        new CountyCode() { Id = 301,  Description = "NOBLE" },
-        new CountyCode() { Id = 302,  Description = "OTTAWA" },
-        new CountyCode() { Id = 303,  Description = "PAULDING" },
-        new CountyCode() { Id = 304,  Description = "PERRY" },
-        new CountyCode() { Id = 305,  Description = "PICKAWAY" },
-        new CountyCode() { Id = 306,  Description = "PIKE" },
-        new CountyCode() { Id = 307,  Description = "PORTAGE" },
-        new CountyCode() { Id = 308,  Description = "PREBLE" },
-        new CountyCode() { Id = 309,  Description = "PUTNAM" },
-        new CountyCode() { Id = 310,  Description = "RICHLAND" },
-        new CountyCode() { Id = 311,  Description = "ROSS" },
-        new CountyCode() { Id = 312,  Description = "SANDUSKY" },
-        new CountyCode() { Id = 313,  Description = "SCIOTO" },
-        new CountyCode() { Id = 314,  Description = "SENECA" },
-        new CountyCode() { Id = 315,  Description = "SHELBY" },
-        new CountyCode() { Id = 316,  Description = "STARK" },
-        new CountyCode() { Id = 317,  Description = "SUMMIT" },
-        new CountyCode() { Id = 318,  Description = "TRUMBULL" },
-        new CountyCode() { Id = 319,  Description = "TUSCARAWAS" },
-        new CountyCode() { Id = 320,  Description = "UNION" },
-        new CountyCode() { Id = 321,  Description = "VAN WERT" },
-        new CountyCode() { Id = 322,  Description = "VINTON" },
-        new CountyCode() { Id = 323,  Description = "WARREN" },
-        new CountyCode() { Id = 324,  Description = "WASHINGTON" },
-        new CountyCode() { Id = 325,  Description = "WAYNE" },
-        new CountyCode() { Id = 326,  Description = "WILLIAMS" },
-        new CountyCode() { Id = 327,  Description = "WOOD" },
-        new CountyCode() { Id = 328,  Description = "WYANDOT" },
-        new CountyCode() { Id = 329,  Description = "ARCHULETA" },
-        new CountyCode() { Id = 330,  Description = "LAPLATA" },
-        new CountyCode() { Id = 331,  Description = "HINSDALE" },
-        new CountyCode() { Id = 332,  Description = "MINERAL" },
-        new CountyCode() { Id = 333,  Description = "ADAMS" },
-        new CountyCode() { Id = 334,  Description = "TRUMBULL" },
-        new CountyCode() { Id = 335,  Description = "ALAMOSA" },
-        new CountyCode() { Id = 336,  Description = "ARAPAHOE" },
-        new CountyCode() { Id = 337,  Description = "BACA" },
-        new CountyCode() { Id = 338,  Description = "BENT" },
-        new CountyCode() { Id = 339,  Description = "BOULDER" },
-        new CountyCode() { Id = 340,  Description = "BROOMFIELD" },
-        new CountyCode() { Id = 341,  Description = "CHAFFEE" },
-        new CountyCode() { Id = 342,  Description = "CHEYENNE" },
-        new CountyCode() { Id = 343,  Description = "CLEAR CREEK" },
-        new CountyCode() { Id = 344,  Description = "CONEJOS" },
-        new CountyCode() { Id = 345,  Description = "COSTILLA" },
-        new CountyCode() { Id = 346,  Description = "CROWLEY" },
-        new CountyCode() { Id = 347,  Description = "CUSTER" },
-        new CountyCode() { Id = 348,  Description = "DELTA" },
-        new CountyCode() { Id = 349,  Description = "DENVER" },
-        new CountyCode() { Id = 350,  Description = "DOLORES" },
-        new CountyCode() { Id = 351,  Description = "DOUGLLAS" },
-        new CountyCode() { Id = 352, Description = "EAGLE" },
-        new CountyCode() { Id = 353,  Description = "ELBERT" },
-        new CountyCode() { Id = 354,  Description = "EL PASO" },
-        new CountyCode() { Id = 355,  Description = "FREMONT" },
-        new CountyCode() { Id = 356,  Description = "GARFILED" },
-        new CountyCode() { Id = 357,  Description = "GILPIN" },
-        new CountyCode() { Id = 358,  Description = "GRAND" },
-        new CountyCode() { Id = 359,  Description = "GUNNISON" },
-        new CountyCode() { Id = 360,  Description = "HUERFANO" },
-        new CountyCode() { Id = 361,  Description = "JACKSON" },
-        new CountyCode() { Id = 362,  Description = "JEFFERSON" },
-        new CountyCode() { Id = 363,  Description = "KIOWA" },
-        new CountyCode() { Id = 364,  Description = "KIT CARSON" },
-        new CountyCode() { Id = 365,  Description = "LAKE" },
-        new CountyCode() { Id = 366,  Description = "LARIMER" },
-        new CountyCode() { Id = 367,  Description = "LAS ANIMAS" },
-        new CountyCode() { Id = 368,  Description = "LINCOLN" },
-        new CountyCode() { Id = 369, Description = "LOGAN" },
-        new CountyCode() { Id = 370,  Description = "MESA" },
-        new CountyCode() { Id = 371,  Description = "MOFFAT" },
-        new CountyCode() { Id = 372,  Description = "MONTEZUMA" },
-        new CountyCode() { Id = 373,  Description = "MONTROSE" },
-        new CountyCode() { Id = 374,  Description = "MORGAN" },
-        new CountyCode() { Id = 375,  Description = "OTERO" },
-        new CountyCode() { Id = 376,  Description = "OURAY" },
-        new CountyCode() { Id = 377,  Description = "PARK" },
-        new CountyCode() { Id = 378,  Description = "PHILLIPS" },
-        new CountyCode() { Id = 379,  Description = "PITKIN" },
-        new CountyCode() { Id = 380,  Description = "PROWERS" },
-        new CountyCode() { Id = 381,  Description = "PUEBLO" },
-        new CountyCode() { Id = 382, Description = "RIO BLANCO" },
-        new CountyCode() { Id = 383,  Description = "RIO GRANDE" },
-        new CountyCode() { Id = 384,  Description = "ROUTT" },
-        new CountyCode() { Id = 385,  Description = "SAGUACHE" },
-        new CountyCode() { Id = 386,  Description = "SAN JUAN" },
-        new CountyCode() { Id = 387,  Description = "SAN MIGUEL" },
-        new CountyCode() { Id = 388,  Description = "SEDGWICK" },
-        new CountyCode() { Id = 389,  Description = "SUMMITT" },
-        new CountyCode() { Id = 390,  Description = "TELLER" },
-        new CountyCode() { Id = 391, Description = "WASHINGTON" },
-        new CountyCode() { Id = 392,  Description = "WELD" },
-        new CountyCode() { Id = 393,  Description = "YUMA" }
-    });
-
-   private List<CountryAlias> CountryAliasTable = new List<CountryAlias>(new CountryAlias[] {
+   private readonly List<CountryAlias> CountryAliasTable = new List<CountryAlias>(new CountryAlias[] {
         new CountryAlias() { Id = 1, AliasName = "A.D.", ForeignId = 1 },
         new CountryAlias() { Id = 2, AliasName = "A.E.", ForeignId = 2 },
         new CountryAlias() { Id = 3, AliasName = "A.F.", ForeignId = 3 },
@@ -1374,7 +876,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new CountryAlias() { Id = 252, AliasName = "USSR", ForeignId = 202 }
     });
 
-   private List<CountryCode> CountryTable = new List<CountryCode>(new CountryCode[] {
+   private readonly List<CountryCode> CountryTable = new List<CountryCode>(new CountryCode[] {
         new CountryCode() { Id = 1, Code = "AD", Description = "Andorra" },
         new CountryCode() { Id = 2, Code = "AE", Description = "United Arab Emirates" },
         new CountryCode() { Id = 3, Code = "AF", Description = "Afghanistan" },
@@ -1620,98 +1122,6 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new CountryCode() { Id = 244, Code = "ZW", Description = "Zimbabwe" }
     });
 
-   // TODO rebuild list
-   private List<PostalCode> ZipCodeTable = new List<PostalCode>(new PostalCode[] {
-        new PostalCode() { Id = 3502, City = "NEW YORK", AreaCode = "212", County = "NEW YORK", Latitude = "40.786294", Longitude = "-73.977237", StateCode = "NY", ZipCode = "10024" },
-        new PostalCode() { Id = 3479, City = "NEW YORK", AreaCode = "212", County = "NEW YORK", Latitude = "40.750133", Longitude = "-73.997006", StateCode = "NY", ZipCode = "10001" },
-        new PostalCode() { Id = 9433, City = "RICHMOND", AreaCode = "804", County = "RICHMOND CITY", Latitude = "37.55653", Longitude = "-77.488376", StateCode = "VA", ZipCode = "23221" },
-        new PostalCode() { Id = 9499, City = "CHESAPEAKE", AreaCode = "757", County = "CHESAPEAKE CITY", Latitude = "36.80244", Longitude = "-76.27284", StateCode = "VA", ZipCode = "23324" },
-        new PostalCode() { Id = 9560, City = "VIRGINIA BEACH", AreaCode = "757", County = "VIRGINIA BEACH CITY", Latitude = "36.837924", Longitude = "-76.09392", StateCode = "VA", ZipCode = "23452" },
-        new PostalCode() { Id = 18726, City = "ANDOVER", AreaCode = "440", County = "ASHTABULA", Latitude = "41.62236", Longitude = "-80.58294", StateCode = "OH", ZipCode = "44003" },
-        new PostalCode() { Id = 18727, City = "ASHTABULA", AreaCode = "440", County = "ASHTABULA", Latitude = "41.85054", Longitude = "-80.7774", StateCode = "OH", ZipCode = "44004" },
-        new PostalCode() { Id = 18728, City = "ASHTABULA", AreaCode = "440", County = "ASHTABULA", Latitude = "41.879487", Longitude = "-80.798217", StateCode = "OH", ZipCode = "44005" },
-        new PostalCode() { Id = 18729, City = "AUSTINBURG", AreaCode = "440", County = "ASHTABULA", Latitude = "41.7603", Longitude = "-80.8497", StateCode = "OH", ZipCode = "44010" },
-        new PostalCode() { Id = 18739, City = "CONNEAUT", AreaCode = "440", County = "ASHTABULA", Latitude = "41.930791", Longitude = "-80.583153", StateCode = "OH", ZipCode = "44030" },
-        new PostalCode() { Id = 18740, City = "DORSET", AreaCode = "440", County = "ASHTABULA", Latitude = "41.664615", Longitude = "-80.674938", StateCode = "OH", ZipCode = "44032" },
-        new PostalCode() { Id = 18746, City = "GENEVA", AreaCode = "440", County = "ASHTABULA", Latitude = "41.7874", Longitude = "-80.9576", StateCode = "OH", ZipCode = "44041" },
-        new PostalCode() { Id = 18750, City = "JEFFERSON", AreaCode = "440", County = "ASHTABULA", Latitude = "41.650287", Longitude = "-80.769918", StateCode = "OH", ZipCode = "44047" },
-        new PostalCode() { Id = 18751, City = "KINGSVILLE", AreaCode = "440", County = "ASHTABULA", Latitude = "41.862544", Longitude = "-80.654051", StateCode = "OH", ZipCode = "44048" },
-        new PostalCode() { Id = 18766, City = "NORTH KINGSVILLE", AreaCode = "440", County = "ASHTABULA", Latitude = "41.905833", Longitude = "-80.690556", StateCode = "OH", ZipCode = "44068" },
-        new PostalCode() { Id = 18767, City = "NORTH KINGSVILLE", AreaCode = "440", County = "ASHTABULA", Latitude = "41.905833", Longitude = "-80.690556", StateCode = "OH", ZipCode = "44068" },
-        new PostalCode() { Id = 18773, City = "ORWELL", AreaCode = "440", County = "ASHTABULA", Latitude = "41.534242", Longitude = "-80.831409", StateCode = "OH", ZipCode = "44076" },
-        new PostalCode() { Id = 18777, City = "PIERPONT", AreaCode = "440", County = "ASHTABULA", Latitude = "41.764438", Longitude = "-80.562559", StateCode = "OH", ZipCode = "44082" },
-        new PostalCode() { Id = 18778, City = "ROCK CREEK", AreaCode = "440", County = "ASHTABULA", Latitude = "41.666146", Longitude = "-80.872595", StateCode = "OH", ZipCode = "44084" },
-        new PostalCode() { Id = 18779, City = "ROME", AreaCode = "440", County = "ASHTABULA", Latitude = "41.614573", Longitude = "-80.854313", StateCode = "OH", ZipCode = "44085" },
-        new PostalCode() { Id = 18782, City = "UNIONVILLE", AreaCode = "440", County = "ASHTABULA", Latitude = "41.779732", Longitude = "-81.006807", StateCode = "OH", ZipCode = "44088" },
-        new PostalCode() { Id = 18786, City = "WILLIAMSFIELD", AreaCode = "440", County = "ASHTABULA", Latitude = "41.5293", Longitude = "-80.6118", StateCode = "OH", ZipCode = "44093" },
-        new PostalCode() { Id = 18787, City = "WILLIAMSFIELD", AreaCode = "440", County = "ASHTABULA", Latitude = "41.5293", Longitude = "-80.6118", StateCode = "OH", ZipCode = "44093" },
-        new PostalCode() { Id = 18792, City = "WINDSOR", AreaCode = "440", County = "ASHTABULA", Latitude = "41.5593", Longitude = "-80.9661", StateCode = "OH", ZipCode = "44099" },
-        new PostalCode() { Id = 18937, City = "BERLIN CENTER", AreaCode = "330", County = "MAHONING", Latitude = "41.033139", Longitude = "-80.950158", StateCode = "OH", ZipCode = "44401" },
-        new PostalCode() { Id = 18938, City = "BRISTOLVILLE", AreaCode = "330", County = "TRUMBULL", Latitude = "41.380486", Longitude = "-80.859725", StateCode = "OH", ZipCode = "44402" },
-        new PostalCode() { Id = 18939, City = "BROOKFIELD", AreaCode = "330", County = "TRUMBULL", Latitude = "41.237799", Longitude = "-80.579552", StateCode = "OH", ZipCode = "44403" },
-        new PostalCode() { Id = 18940, City = "BURGHILL", AreaCode = "330", County = "TRUMBULL", Latitude = "41.333506", Longitude = "-80.544438", StateCode = "OH", ZipCode = "44404" },
-        new PostalCode() { Id = 18941, City = "CAMPBELL", AreaCode = "330", County = "MAHONING", Latitude = "41.077659", Longitude = "-80.592957", StateCode = "OH", ZipCode = "44405" },
-        new PostalCode() { Id = 18942, City = "CANFIELD", AreaCode = "330", County = "MAHONING", Latitude = "41.027553", Longitude = "-80.759392", StateCode = "OH", ZipCode = "44406" },
-        new PostalCode() { Id = 18944, City = "CORTLAND", AreaCode = "330", County = "TRUMBULL", Latitude = "41.329538", Longitude = "-80.731053", StateCode = "OH", ZipCode = "44410" },
-        new PostalCode() { Id = 18949, City = "ELLSWORTH", AreaCode = "330", County = "MAHONING", Latitude = "41.02695", Longitude = "-80.85801", StateCode = "OH", ZipCode = "44416" },
-        new PostalCode() { Id = 18950, City = "FARMDALE", AreaCode = "330", County = "TRUMBULL", Latitude = "41.427245", Longitude = "-80.66426", StateCode = "OH", ZipCode = "44417" },
-        new PostalCode() { Id = 18951, City = "FOWLER", AreaCode = "330", County = "TRUMBULL", Latitude = "41.303879", Longitude = "-80.608217", StateCode = "OH", ZipCode = "44418" },
-        new PostalCode() { Id = 18952, City = "GIRARD", AreaCode = "330", County = "TRUMBULL", Latitude = "41.161569", Longitude = "-80.689483", StateCode = "OH", ZipCode = "44420" },
-        new PostalCode() { Id = 18953, City = "GREENFORD", AreaCode = "330", County = "MAHONING", Latitude = "40.943889", Longitude = "-80.791667", StateCode = "OH", ZipCode = "44422" },
-        new PostalCode() { Id = 18955, City = "HARTFORD", AreaCode = "330", County = "TRUMBULL", Latitude = "41.3143", Longitude = "-80.57055", StateCode = "OH", ZipCode = "44424" },
-        new PostalCode() { Id = 18956, City = "HUBBARD", AreaCode = "330", County = "TRUMBULL", Latitude = "41.162233", Longitude = "-80.580232", StateCode = "OH", ZipCode = "44425" },
-        new PostalCode() { Id = 18958, City = "KINSMAN", AreaCode = "330", County = "TRUMBULL", Latitude = "41.4318", Longitude = "-80.58384", StateCode = "OH", ZipCode = "44428" },
-        new PostalCode() { Id = 18959, City = "LAKE MILTON", AreaCode = "330", County = "MAHONING", Latitude = "41.10012", Longitude = "-80.97816", StateCode = "OH", ZipCode = "44429" },
-        new PostalCode() { Id = 18960, City = "LEAVITTSBURG", AreaCode = "330", County = "TRUMBULL", Latitude = "41.241797", Longitude = "-80.884916", StateCode = "OH", ZipCode = "44430" },
-        new PostalCode() { Id = 18963, City = "LOWELLVILLE", AreaCode = "330", County = "MAHONING", Latitude = "41.052242", Longitude = "-80.545298", StateCode = "OH", ZipCode = "44436" },
-        new PostalCode() { Id = 18964, City = "MC DONALD", AreaCode = "330", County = "TRUMBULL", Latitude = "41.158655", Longitude = "-80.73109", StateCode = "OH", ZipCode = "44437" },
-        new PostalCode() { Id = 18965, City = "MASURY", AreaCode = "330", County = "TRUMBULL", Latitude = "41.22543", Longitude = "-80.533866", StateCode = "OH", ZipCode = "44438" },
-        new PostalCode() { Id = 18966, City = "MESOPOTAMIA", AreaCode = "440", County = "TRUMBULL", Latitude = "41.462264", Longitude = "-80.953312", StateCode = "OH", ZipCode = "44439" },
-        new PostalCode() { Id = 18967, City = "MINERAL RIDGE", AreaCode = "330", County = "TRUMBULL", Latitude = "41.143026", Longitude = "-80.772677", StateCode = "OH", ZipCode = "44440" },
-        new PostalCode() { Id = 18969, City = "NEW MIDDLETOWN", AreaCode = "330", County = "MAHONING", Latitude = "40.966533", Longitude = "-80.554535", StateCode = "OH", ZipCode = "44442" },
-        new PostalCode() { Id = 18970, City = "NEW SPRINGFIELD", AreaCode = "330", County = "MAHONING", Latitude = "40.925767", Longitude = "-80.598426", StateCode = "OH", ZipCode = "44443" },
-        new PostalCode() { Id = 18971, City = "NEWTON FALLS", AreaCode = "330", County = "TRUMBULL", Latitude = "41.187057", Longitude = "-80.969315", StateCode = "OH", ZipCode = "44444" },
-        new PostalCode() { Id = 18973, City = "NILES", AreaCode = "330", County = "TRUMBULL", Latitude = "41.187183", Longitude = "-80.750039", StateCode = "OH", ZipCode = "44446" },
-        new PostalCode() { Id = 18975, City = "NORTH BLOOMFIELD", AreaCode = "440", County = "TRUMBULL", Latitude = "41.46078", Longitude = "-80.83044", StateCode = "OH", ZipCode = "44450" },
-        new PostalCode() { Id = 18976, City = "NORTH JACKSON", AreaCode = "330", County = "MAHONING", Latitude = "41.081376", Longitude = "-80.86535", StateCode = "OH", ZipCode = "44451" },
-        new PostalCode() { Id = 18977, City = "NORTH LIMA", AreaCode = "330", County = "MAHONING", Latitude = "40.95198", Longitude = "-80.657289", StateCode = "OH", ZipCode = "44452" },
-        new PostalCode() { Id = 18978, City = "ORANGEVILLE", AreaCode = "330", County = "TRUMBULL", Latitude = "41.337051", Longitude = "-80.522753", StateCode = "OH", ZipCode = "44453" },
-        new PostalCode() { Id = 18979, City = "PETERSBURG", AreaCode = "330", County = "MAHONING", Latitude = "40.918875", Longitude = "-80.535643", StateCode = "OH", ZipCode = "44454" },
-        new PostalCode() { Id = 18982, City = "SOUTHINGTON", AreaCode = "330", County = "TRUMBULL", Latitude = "41.299679", Longitude = "-80.952546", StateCode = "OH", ZipCode = "44470" },
-        new PostalCode() { Id = 18983, City = "STRUTHERS", AreaCode = "330", County = "MAHONING", Latitude = "41.052066", Longitude = "-80.592794", StateCode = "OH", ZipCode = "44471" },
-        new PostalCode() { Id = 18984, City = "VIENNA", AreaCode = "330", County = "TRUMBULL", Latitude = "41.239899", Longitude = "-80.661857", StateCode = "OH", ZipCode = "44473" },
-        new PostalCode() { Id = 18985, City = "WARREN", AreaCode = "330", County = "TRUMBULL", Latitude = "41.24142", Longitude = "-80.85708", StateCode = "OH", ZipCode = "44481" },
-        new PostalCode() { Id = 18986, City = "WARREN", AreaCode = "330", County = "TRUMBULL", Latitude = "41.194064", Longitude = "-80.82664", StateCode = "OH", ZipCode = "44482" },
-        new PostalCode() { Id = 18987, City = "WARREN", AreaCode = "330", County = "TRUMBULL", Latitude = "41.27814", Longitude = "-80.8173", StateCode = "OH", ZipCode = "44483" },
-        new PostalCode() { Id = 18988, City = "WARREN", AreaCode = "330", County = "TRUMBULL", Latitude = "41.23578", Longitude = "-80.76132", StateCode = "OH", ZipCode = "44484" },
-        new PostalCode() { Id = 18989, City = "WARREN", AreaCode = "330", County = "TRUMBULL", Latitude = "41.236898", Longitude = "-80.843931", StateCode = "OH", ZipCode = "44485" },
-        new PostalCode() { Id = 18990, City = "WARREN", AreaCode = "330", County = "TRUMBULL", Latitude = "41.30208", Longitude = "-80.84057", StateCode = "OH", ZipCode = "44486" },
-        new PostalCode() { Id = 18991, City = "WARREN", AreaCode = "330", County = "TRUMBULL", Latitude = "41.23764", Longitude = "-80.81871", StateCode = "OH", ZipCode = "44487" },
-        new PostalCode() { Id = 18992, City = "WARREN", AreaCode = "330", County = "TRUMBULL", Latitude = "41.23755", Longitude = "-80.81633", StateCode = "OH", ZipCode = "44488" },
-        new PostalCode() { Id = 18994, City = "WEST FARMINGTON", AreaCode = "440", County = "TRUMBULL", Latitude = "41.370326", Longitude = "-80.960751", StateCode = "OH", ZipCode = "44491" },
-        new PostalCode() { Id = 18997, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.0966", Longitude = "-80.6592", StateCode = "OH", ZipCode = "44501" },
-        new PostalCode() { Id = 18998, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.085652", Longitude = "-80.642881", StateCode = "OH", ZipCode = "44502" },
-        new PostalCode() { Id = 18999, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.098958", Longitude = "-80.653595", StateCode = "OH", ZipCode = "44503" },
-        new PostalCode() { Id = 19000, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.123223", Longitude = "-80.656", StateCode = "OH", ZipCode = "44504" },
-        new PostalCode() { Id = 19001, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.114667", Longitude = "-80.611779", StateCode = "OH", ZipCode = "44505" },
-        new PostalCode() { Id = 19002, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.096049", Longitude = "-80.627224", StateCode = "OH", ZipCode = "44506" },
-        new PostalCode() { Id = 19003, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.074647", Longitude = "-80.655109", StateCode = "OH", ZipCode = "44507" },
-        new PostalCode() { Id = 19004, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.106023", Longitude = "-80.693521", StateCode = "OH", ZipCode = "44509" },
-        new PostalCode() { Id = 19005, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.120133", Longitude = "-80.669443", StateCode = "OH", ZipCode = "44510" },
-        new PostalCode() { Id = 19006, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.069585", Longitude = "-80.697622", StateCode = "OH", ZipCode = "44511" },
-        new PostalCode() { Id = 19007, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.04168", Longitude = "-80.6856", StateCode = "OH", ZipCode = "44512" },
-        new PostalCode() { Id = 19008, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.0241", Longitude = "-80.67522", StateCode = "OH", ZipCode = "44513" },
-        new PostalCode() { Id = 19009, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.00874", Longitude = "-80.62416", StateCode = "OH", ZipCode = "44514" },
-        new PostalCode() { Id = 19010, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.10024", Longitude = "-80.75976", StateCode = "OH", ZipCode = "44515" },
-        new PostalCode() { Id = 19011, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.10355", Longitude = "-80.642769", StateCode = "OH", ZipCode = "44555" },
-        new PostalCode() { Id = 19012, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.0991", Longitude = "-80.646389", StateCode = "OH", ZipCode = "44598" },
-        new PostalCode() { Id = 19013, City = "YOUNGSTOWN", AreaCode = "330", County = "MAHONING", Latitude = "41.10037", Longitude = "-80.64965", StateCode = "OH", ZipCode = "44599" },
-        new PostalCode() { Id = 19018, City = "BELOIT", AreaCode = "330", County = "MAHONING", Latitude = "40.931672", Longitude = "-80.990535", StateCode = "OH", ZipCode = "44609" },
-        new PostalCode() { Id = 19027, City = "DAMASCUS", AreaCode = "330", County = "MAHONING", Latitude = "40.901369", Longitude = "-80.95694", StateCode = "OH", ZipCode = "44619" },
-        new PostalCode() { Id = 19071, City = "SEBRING", AreaCode = "330", County = "MAHONING", Latitude = "40.922093", Longitude = "-81.026855", StateCode = "OH", ZipCode = "44672" },
-        new PostalCode() { Id = 25879, City = "ARLINGTON HEIGHTS", AreaCode = "847", County = "COOK", Latitude = "42.1325", Longitude = "-88.091533", StateCode = "IL", ZipCode = "60006" },
-        new PostalCode() { Id = 39683, City = "SEBASTOPOL", AreaCode = "707", County = "SONOMA", Latitude = "38.40186", Longitude = "-122.85168", StateCode = "CA", ZipCode = "95472" }
-    });
 
 }
 

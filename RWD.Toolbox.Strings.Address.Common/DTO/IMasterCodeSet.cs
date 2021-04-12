@@ -1,8 +1,6 @@
 ﻿
 using System.Collections.Generic;
 
-// TODO needed?
-
 namespace RWD.Toolbox.Strings.Address.Common.DTO
 {
    /// <summary>
@@ -15,73 +13,63 @@ namespace RWD.Toolbox.Strings.Address.Common.DTO
       /// List of Direction Codes Needed for Address Control to Function
       /// </summary>
       /// <returns>List of Codes as <see cref="List(Of DirectionalCode)"/></returns>
-      List<DirectionalCode> DirectionalCodes { get; set; }
+      List<DirectionalCode> DirectionalCodes { get; }
 
       /// <summary>
       /// List of Directional Aliases Codes Needed for Address Control to Function
       /// </summary>
       /// <returns>List of Codes as <see cref="List(Of DirectionalAlias)"/></returns>
-      List<DirectionalAlias> DirectionalAliases { get; set; }
+      List<DirectionalAlias> DirectionalAliases { get; }
 
       /// <summary>
       /// List of Street Suffix Codes Needed for Address Control to Function
       /// </summary>
       /// <returns>List of Codes as <see cref="List(Of StreetSuffixCode)"/></returns>
-      List<StreetSuffixCode> StreetSuffixCodes { get; set; }
+      List<StreetSuffixCode> StreetSuffixCodes { get; }
 
       /// <summary>
       /// List of Street Suffix Aliases Codes Needed for Address Control to Function
       /// </summary>
       /// <returns>List of Codes as <see cref="List(Of StreetSuffixAlias)"/></returns>
-      List<StreetSuffixAlias> StreetSuffixAliases { get; set; }
+      List<StreetSuffixAlias> StreetSuffixAliases { get; }
 
       /// <summary>
       /// List of Street Secondary Unit Codes Needed for Address Control to Function
       /// </summary>
       /// <returns>List of Codes as <see cref="List(Of StreetSecondaryUnitCode)"/></returns>
-      List<StreetSecondaryUnitCode> StreetSecondaryUnitCodes { get; set; }
+      List<StreetSecondaryUnitCode> StreetSecondaryUnitCodes { get; }
 
       /// <summary>
       /// List of Street Secondary Unit Alias Codes Needed for Address Control to Function
       /// </summary>
       /// <returns>List of Codes as <see cref="List(Of StreetSecondaryUnitAlias)"/></returns>
-      List<StreetSecondaryUnitAlias> StreetSecondaryUnitAliases { get; set; }
+      List<StreetSecondaryUnitAlias> StreetSecondaryUnitAliases { get; }
 
-      /// <summary>
-      /// List of County Codes Needed for Address Control to Function
-      /// </summary>
-      /// <returns>List of Codes as <see cref="List(Of CountyCode)"/></returns>
-      List<CountyCode> CountyCodes { get; set; }
 
       /// <summary>
       /// List of State Codes Needed for Address Control to Function
       /// </summary>
       /// <returns>List of Codes as <see cref="List(Of StateCode)"/></returns>
-      List<StateCode> StateCodes { get; set; }
+      List<StateCode> StateCodes { get; }
 
       /// <summary>
       /// List of State Alias Codes Needed for Address Control to Function
       /// </summary>
       /// <returns>List of Codes as <see cref="List(Of StateAlias)"/></returns>
-      List<StateAlias> StateAliases { get; set; }
+      List<StateAlias> StateAliases { get; }
 
       /// <summary>
       /// List of Country Codes Needed for Address Control to Function
       /// </summary>
       /// <returns>List of Codes as <see cref="List(Of CountryCode)"/></returns>
-      List<CountryCode> CountryCodes { get; set; }
+      List<CountryCode> CountryCodes { get; }
 
       /// <summary>
       /// List of Country Alias Codes Needed for Address Control to Function
       /// </summary>
       /// <returns>List of Codes as <see cref="List(Of CountryAlias)"/></returns>
-      List<CountryAlias> CountryAliases { get; set; }
+      List<CountryAlias> CountryAliases { get; }
 
-      /// <summary>
-      /// List of Zip Codes Needed for Address Control to Function
-      /// </summary>
-      /// <returns>List of Codes as <see cref="List{PostalCode}"/></returns>
-      List<PostalCode> ZipCodes { get; set; }
    }
 
 }

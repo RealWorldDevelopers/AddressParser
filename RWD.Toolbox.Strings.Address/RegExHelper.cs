@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace RWD.Toolbox.Strings.Address
 {
@@ -11,28 +12,90 @@ namespace RWD.Toolbox.Strings.Address
    /// <inheritdoc/>
    public class RegExHelper : IRegExHelper
    {
-      private readonly IMasterCodeSet _masterCodeSet;          
+      private readonly IMasterCodeSet _masterCodeSet;
 
-      public RegExHelper()
+      public RegExHelper(IMasterCodeSet masterCodeSet)
       {
-         // TODO move to DI
-         _masterCodeSet = new MasterCodeSet();
+         _masterCodeSet = masterCodeSet;
 
-         // TODO multi thread this and use async
-         DirectionalPattern = CreateDirectionalPattern();
-         SuffixPattern = CreateStreetSuffixPattern();
-         RangedSecondaryUnitPattern = CreateSecondaryUnitPattern(true);
-         RangelessSecondaryUnitPattern = CreateSecondaryUnitPattern(false);
-         StatePattern = CreateStatePattern();
-         PostalCodePattern = CreatePostalCodePattern();
-         CountryPattern = CreateCountryPattern();
-         NumberPattern = CreateNumberPattern();
-         AllSecondaryUnitPattern = CreateSecondaryUnitPattern(RangedSecondaryUnitPattern, RangelessSecondaryUnitPattern);
-         DirectionStreetPattern = CreateStreetNameSameAsDirectionPattern(DirectionalPattern, SuffixPattern, AllSecondaryUnitPattern);
-         StreetPattern = CreateStreetPattern(DirectionalPattern, AllSecondaryUnitPattern, SuffixPattern);
-         CityAndStatePattern = CreateCityStatePattern(StatePattern);
-         PlacePattern = CreatePlacePattern(CityAndStatePattern, PostalCodePattern, CountryPattern);
-         POBoxPattern = CreatePOBoxPattern();
+         // using TPL to parallel call gets
+         List<Task> tasks = new List<Task>();
+         var taskDirectionalPattern = Task.Run(() =>
+            CreateDirectionalPattern());
+         tasks.Add(taskDirectionalPattern);
+         DirectionalPattern = taskDirectionalPattern.Result;
+
+         var taskSuffixPattern = Task.Run(() =>
+            CreateStreetSuffixPattern());
+         tasks.Add(taskSuffixPattern);
+         SuffixPattern = taskSuffixPattern.Result;
+
+         var taskRangedSecondaryUnitPattern = Task.Run(() =>
+            CreateSecondaryUnitPattern(true));
+         tasks.Add(taskRangedSecondaryUnitPattern);
+         RangedSecondaryUnitPattern = taskRangedSecondaryUnitPattern.Result;
+
+         var taskRangelessSecondaryUnitPattern = Task.Run(() =>
+            CreateSecondaryUnitPattern(false));
+         tasks.Add(taskRangelessSecondaryUnitPattern);
+         RangelessSecondaryUnitPattern = taskRangelessSecondaryUnitPattern.Result;
+
+         var taskStatePattern = Task.Run(() =>
+           CreateStatePattern());
+         tasks.Add(taskStatePattern);
+         StatePattern = taskStatePattern.Result;
+
+         var taskPostalCodePattern = Task.Run(() =>
+           CreatePostalCodePattern());
+         tasks.Add(taskPostalCodePattern);
+         PostalCodePattern = taskPostalCodePattern.Result;
+
+         var taskCountryPattern = Task.Run(() =>
+           CreateCountryPattern());
+         tasks.Add(taskCountryPattern);
+         CountryPattern = taskCountryPattern.Result;
+
+         var taskNumberPattern = Task.Run(() =>
+           CreateNumberPattern());
+         tasks.Add(taskNumberPattern);
+         NumberPattern = taskNumberPattern.Result;
+
+         var taskPOBoxPattern = Task.Run(() =>
+           CreatePOBoxPattern());
+         tasks.Add(taskPOBoxPattern);
+         POBoxPattern = taskPOBoxPattern.Result;
+
+         Task.WaitAll(tasks.ToArray());
+
+         var taskAllSecondaryUnitPattern = Task.Run(() =>
+           CreateSecondaryUnitPattern(RangedSecondaryUnitPattern, RangelessSecondaryUnitPattern));
+         tasks.Add(taskAllSecondaryUnitPattern);
+         AllSecondaryUnitPattern = taskAllSecondaryUnitPattern.Result;
+
+         var taskCityAndStatePattern = Task.Run(() =>
+           CreateCityStatePattern(StatePattern));
+         tasks.Add(taskCityAndStatePattern);
+         CityAndStatePattern = taskCityAndStatePattern.Result;
+
+         Task.WaitAll(tasks.ToArray());
+
+         var taskDirectionStreetPattern = Task.Run(() =>
+          CreateStreetNameSameAsDirectionPattern(DirectionalPattern, SuffixPattern, AllSecondaryUnitPattern));
+         tasks.Add(taskDirectionStreetPattern);
+         DirectionStreetPattern = taskDirectionStreetPattern.Result;
+
+         var taskStreetPattern = Task.Run(() =>
+          CreateStreetPattern(DirectionalPattern, AllSecondaryUnitPattern, SuffixPattern));
+         tasks.Add(taskStreetPattern);
+         StreetPattern = taskStreetPattern.Result;
+
+         var taskPlacePattern = Task.Run(() =>
+          CreatePlacePattern(CityAndStatePattern, PostalCodePattern, CountryPattern));
+         tasks.Add(taskPlacePattern);
+         PlacePattern = taskPlacePattern.Result;
+
+         Task.WaitAll(tasks.ToArray());
+
          AddressPattern = CreateAddressPattern(NumberPattern, DirectionStreetPattern, StreetPattern, POBoxPattern, PlacePattern, PostalCodePattern);
       }
 

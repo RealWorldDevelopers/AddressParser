@@ -1,19 +1,24 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RWD.Toolbox.Strings.Address.Common.DTO;
+
 
 namespace RWD.Toolbox.Strings.Address.Test
 {
    [TestClass()]
    public class ParserTest
    {
-
       // Private Shared _masterCodeSet As IMasterCodeSet
-      private IParser _addressParser;
-      private IFormatter _addressFormatter;
+      private readonly IParser _addressParser;
+      private readonly IFormatter _addressFormatter;
+      private readonly IMasterCodeSet _masterCodeSet;
+      private readonly IRegExHelper _regExHelper;
 
       public ParserTest()
       {
-         _addressParser = new Parser();
+         _masterCodeSet = new MasterCodeSet();
+         _regExHelper = new RegExHelper(_masterCodeSet);
+         _addressParser = new Parser(_regExHelper, _masterCodeSet);
          _addressFormatter = new Formatter();
       }
 
@@ -34,7 +39,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -57,7 +61,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("12A", dto.SecondaryNumber, _testIgnoreCase);
          Assert.AreEqual("99", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("WARREN", dto.City, _testIgnoreCase);
-         Assert.AreEqual("TRUMBULL", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44484-1997", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
@@ -78,7 +81,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("A2", dto.SecondaryNumber, _testIgnoreCase);
          Assert.AreEqual("99", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("WARREN", dto.City, _testIgnoreCase);
-         Assert.AreEqual("TRUMBULL", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44484-1997", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
@@ -99,7 +101,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("2", dto.SecondaryNumber, _testIgnoreCase);
          Assert.AreEqual("99", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("WARREN", dto.City, _testIgnoreCase);
-         Assert.AreEqual("TRUMBULL", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44484-1997", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
@@ -120,10 +121,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryUnit));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("SEBASTOPOL", dto.City, _testIgnoreCase);
-         Assert.AreEqual("SONOMA", dto.County, _testIgnoreCase);
          Assert.AreEqual("CA", dto.State, _testIgnoreCase);
          Assert.AreEqual("95472", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -141,10 +141,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryUnit));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("SEBASTOPOL", dto.City, _testIgnoreCase);
-         Assert.AreEqual("SONOMA", dto.County, _testIgnoreCase);
          Assert.AreEqual("CA", dto.State, _testIgnoreCase);
          Assert.AreEqual("95472", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -152,7 +151,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("1005 N. Gravenstein Highway, Sebastopol, CA.");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("1005 N GRAVENSTEIN HWY; SEBASTOPOL CA  95472", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("1005 N GRAVENSTEIN HWY; SEBASTOPOL CA", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.AreEqual("1005", dto.Number, _testIgnoreCase);
          Assert.AreEqual("N", dto.PreDirectional, _testIgnoreCase);
          Assert.AreEqual("GRAVENSTEIN", dto.Street, _testIgnoreCase);
@@ -162,10 +161,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryUnit));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("SEBASTOPOL", dto.City, _testIgnoreCase);
-         Assert.AreEqual("SONOMA", dto.County, _testIgnoreCase);
          Assert.AreEqual("CA", dto.State, _testIgnoreCase);
-         Assert.AreEqual("95472", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -183,10 +181,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("PH", dto.SecondaryUnit, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("NEW YORK", dto.City, _testIgnoreCase);
-         Assert.AreEqual("NEW YORK", dto.County, _testIgnoreCase);
          Assert.AreEqual("NY", dto.State, _testIgnoreCase);
          Assert.AreEqual("10001", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -204,10 +201,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("ARLINGTON HEIGHTS", dto.City, _testIgnoreCase);
-         Assert.AreEqual("Cook", dto.County, _testIgnoreCase);
          Assert.AreEqual("IL", dto.State, _testIgnoreCase);
          Assert.AreEqual("60006", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -225,10 +221,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("NEW YORK", dto.City, _testIgnoreCase);
-         Assert.AreEqual("NEW YORK", dto.County, _testIgnoreCase);
          Assert.AreEqual("NY", dto.State, _testIgnoreCase);
          Assert.AreEqual("10024", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -246,10 +241,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("VIRGINIA BEACH", dto.City, _testIgnoreCase);
-         Assert.AreEqual("VIRGINIA BEACH CITY", dto.County, _testIgnoreCase);
          Assert.AreEqual("VA", dto.State, _testIgnoreCase);
          Assert.AreEqual("23452", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -257,7 +251,6 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("500 SOUTH STREET SE PENTHOUSE, VIRGINIA BEACH VIRGINIA 23452");
          Assert.IsNotNull(dto);
-         var x = _addressFormatter.BuildSingleLine(dto);
          Assert.AreEqual("500 SOUTH ST SE PH; VIRGINIA BEACH VA  23452", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.AreEqual("500", dto.Number, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
@@ -268,10 +261,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("VIRGINIA BEACH", dto.City, _testIgnoreCase);
-         Assert.AreEqual("VIRGINIA BEACH CITY", dto.County, _testIgnoreCase);
          Assert.AreEqual("VA", dto.State, _testIgnoreCase);
          Assert.AreEqual("23452", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -289,10 +281,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("5", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("VIRGINIA BEACH", dto.City, _testIgnoreCase);
-         Assert.AreEqual("VIRGINIA BEACH CITY", dto.County, _testIgnoreCase);
          Assert.AreEqual("VA", dto.State, _testIgnoreCase);
          Assert.AreEqual("23452", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -310,10 +301,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("VIRGINIA BEACH", dto.City, _testIgnoreCase);
-         Assert.AreEqual("VIRGINIA BEACH CITY", dto.County, _testIgnoreCase);
          Assert.AreEqual("VA", dto.State, _testIgnoreCase);
          Assert.AreEqual("23452", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -331,10 +321,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("5", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("VIRGINIA BEACH", dto.City, _testIgnoreCase);
-         Assert.AreEqual("VIRGINIA BEACH CITY", dto.County, _testIgnoreCase);
          Assert.AreEqual("VA", dto.State, _testIgnoreCase);
          Assert.AreEqual("23452", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -352,10 +341,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("RICHMOND", dto.City, _testIgnoreCase);
-         Assert.AreEqual("RICHMOND CITY", dto.County, _testIgnoreCase);
          Assert.AreEqual("VA", dto.State, _testIgnoreCase);
          Assert.AreEqual("23221", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -373,10 +361,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("A", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("NEW YORK", dto.City, _testIgnoreCase);
-         Assert.AreEqual("NEW YORK", dto.County, _testIgnoreCase);
          Assert.AreEqual("NY", dto.State, _testIgnoreCase);
          Assert.AreEqual("10024", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -394,10 +381,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("ARLINGTON HEIGHTS", dto.City, _testIgnoreCase);
-         Assert.AreEqual("Cook", dto.County, _testIgnoreCase);
          Assert.AreEqual("IL", dto.State, _testIgnoreCase);
          Assert.AreEqual("60006", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -415,7 +401,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047-1447", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
@@ -436,7 +421,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047-1447", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
@@ -457,7 +441,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047-1447", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
@@ -478,7 +461,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047-1447", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
@@ -499,7 +481,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047-1447", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
@@ -520,10 +501,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047-1447", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -541,10 +521,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047-1447", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -562,10 +541,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047-1447", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -583,10 +561,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047-1447", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -604,10 +581,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -625,10 +601,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -646,10 +621,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -667,10 +641,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -688,10 +661,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -709,10 +681,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -730,10 +701,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -751,10 +721,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -772,10 +741,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -783,7 +751,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("123 MAIN ST; JEFFERSON OH");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("123 MAIN ST; JEFFERSON OH  44047", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("123 MAIN ST; JEFFERSON OH", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.AreEqual("123", dto.Number, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.AreEqual("MAIN", dto.Street, _testIgnoreCase);
@@ -793,10 +761,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
-         Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -804,7 +771,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("123 MAIN ST JEFFERSON OH");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("123 MAIN ST; JEFFERSON OH  44047", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("123 MAIN ST; JEFFERSON OH", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.AreEqual("123", dto.Number, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.AreEqual("MAIN", dto.Street, _testIgnoreCase);
@@ -814,10 +781,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
-         Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -835,10 +801,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -856,10 +821,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -867,7 +831,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("123 E MAIN ST S JEFFERSON OH");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("123 E MAIN ST S; JEFFERSON OH  44047", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("123 E MAIN ST S; JEFFERSON OH", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.AreEqual("123", dto.Number, _testIgnoreCase);
          Assert.AreEqual("E", dto.PreDirectional, _testIgnoreCase);
          Assert.AreEqual("MAIN", dto.Street, _testIgnoreCase);
@@ -877,10 +841,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
-         Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -898,10 +861,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -919,10 +881,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -940,10 +901,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -961,10 +921,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -982,10 +941,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1003,10 +961,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1024,10 +981,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1045,10 +1001,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1066,10 +1021,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1087,10 +1041,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1108,10 +1061,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1129,10 +1081,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1150,10 +1101,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1171,10 +1121,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1192,10 +1141,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1213,10 +1161,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1234,10 +1181,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1255,10 +1201,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1276,10 +1221,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1297,7 +1241,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("APO", dto.City, _testIgnoreCase);
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.AreEqual("AE", dto.State, _testIgnoreCase);
          Assert.AreEqual("99969", dto.ZipPlus4);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1318,7 +1261,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("APO", dto.City, _testIgnoreCase);
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.AreEqual("AE", dto.State, _testIgnoreCase);
          Assert.AreEqual("09021", dto.ZipPlus4);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1339,7 +1281,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("FPO", dto.City, _testIgnoreCase);
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.AreEqual("AP", dto.State, _testIgnoreCase);
          Assert.AreEqual("096691", dto.ZipPlus4);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1360,7 +1301,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("DPO", dto.City, _testIgnoreCase);
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.AreEqual("AE", dto.State, _testIgnoreCase);
          Assert.AreEqual("09498-0048", dto.ZipPlus4);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1381,10 +1321,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("4857", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("NEW YORK", dto.City, _testIgnoreCase);
-         Assert.AreEqual("NEW YORK", dto.County, _testIgnoreCase);
          Assert.AreEqual("NY", dto.State, _testIgnoreCase);
          Assert.AreEqual("10001", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1402,10 +1341,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("4857", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("NEW YORK", dto.City, _testIgnoreCase);
-         Assert.AreEqual("NEW YORK", dto.County, _testIgnoreCase);
          Assert.AreEqual("NY", dto.State, _testIgnoreCase);
          Assert.AreEqual("10001", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1423,10 +1361,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1444,10 +1381,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1465,10 +1401,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1486,10 +1421,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1507,10 +1441,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1528,10 +1461,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1549,10 +1481,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1570,10 +1501,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1591,10 +1521,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1602,7 +1531,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("PO BOX 456; 44047");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("PO BOX 456; JEFFERSON OH  44047", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("PO BOX 456  44047", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Number));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Street));
@@ -1611,11 +1540,10 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryUnit));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
-         Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
-         Assert.AreEqual("OH", dto.State, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1633,7 +1561,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456A", dto.POBoxNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1654,10 +1581,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1675,10 +1601,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1696,10 +1621,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1717,10 +1641,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1728,7 +1651,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("123 MAIN ST PO BOX 456 44047");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("123 MAIN ST; PO BOX 456; JEFFERSON OH  44047", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("123 MAIN ST; PO Box 456  44047", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.AreEqual("123", dto.Number, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.AreEqual("MAIN", dto.Street, _testIgnoreCase);
@@ -1737,11 +1660,10 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryUnit));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.AreEqual("456", dto.POBoxNumber, _testIgnoreCase);
-         Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
-         Assert.AreEqual("OH", dto.State, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.AreEqual("44047", dto.ZipPlus4);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1759,7 +1681,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1780,7 +1701,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("31", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1801,7 +1721,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1822,7 +1741,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1843,7 +1761,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("12A", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1864,7 +1781,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1885,7 +1801,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("2", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1906,7 +1821,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1927,7 +1841,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("12A", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1948,7 +1861,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -1959,7 +1871,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("CONNEAUT, OH");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("CONNEAUT OH  44030", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("CONNEAUT OH", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Number));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Street));
@@ -1969,10 +1881,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("CONNEAUT", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
-         Assert.AreEqual("44030", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -1990,10 +1901,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("WARREN", dto.City, _testIgnoreCase);
-         Assert.AreEqual("TRUMBULL", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44484", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2011,10 +1921,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("WARREN", dto.City, _testIgnoreCase);
-         Assert.AreEqual("TRUMBULL", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44484-1447", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2022,7 +1931,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("  CONNEAUT OH  ");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("CONNEAUT OH  44030", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("CONNEAUT OH", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Number));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Street));
@@ -2032,10 +1941,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("CONNEAUT", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
-         Assert.AreEqual("44030", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2053,10 +1961,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("CONNEAUT", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44030", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2064,7 +1971,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("CONNEAUT OH");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("CONNEAUT OH  44030", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("CONNEAUT OH", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Number));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Street));
@@ -2074,10 +1981,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("CONNEAUT", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
-         Assert.AreEqual("44030", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2095,10 +2001,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("WARREN", dto.City, _testIgnoreCase);
-         Assert.AreEqual("TRUMBULL", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44484", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2116,10 +2021,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("WARREN", dto.City, _testIgnoreCase);
-         Assert.AreEqual("TRUMBULL", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44484-1447", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2127,7 +2031,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("44484");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("WARREN OH  44484", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("44484", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Number));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Street));
@@ -2136,11 +2040,10 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryUnit));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
-         Assert.AreEqual("Warren", dto.City, _testIgnoreCase);
-         Assert.AreEqual("Trumbull", dto.County, _testIgnoreCase);
-         Assert.AreEqual("OH", dto.State, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.AreEqual("44484", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2148,7 +2051,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("  44484  ");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("WARREN OH  44484", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("44484", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Number));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Street));
@@ -2157,11 +2060,10 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryUnit));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
-         Assert.AreEqual("Warren", dto.City, _testIgnoreCase);
-         Assert.AreEqual("Trumbull", dto.County, _testIgnoreCase);
-         Assert.AreEqual("OH", dto.State, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.AreEqual("44484", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2169,7 +2071,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("44484-1447");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("WARREN OH  44484-1447", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("44484-1447", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Number));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Street));
@@ -2178,11 +2080,10 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryUnit));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
-         Assert.AreEqual("Warren", dto.City, _testIgnoreCase);
-         Assert.AreEqual("Trumbull", dto.County, _testIgnoreCase);
-         Assert.AreEqual("OH", dto.State, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.AreEqual("44484-1447", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2190,7 +2091,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("  44484-1447  ");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("WARREN OH  44484-1447", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("44484-1447", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Number));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Street));
@@ -2199,11 +2100,10 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryUnit));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
-         Assert.AreEqual("Warren", dto.City, _testIgnoreCase);
-         Assert.AreEqual("Trumbull", dto.County, _testIgnoreCase);
-         Assert.AreEqual("OH", dto.State, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.AreEqual("44484-1447", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2221,7 +2121,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2242,7 +2141,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2263,7 +2161,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2284,7 +2181,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2305,7 +2201,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2326,7 +2221,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2347,7 +2241,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2368,7 +2261,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2389,7 +2281,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2410,7 +2301,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2431,7 +2321,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2452,7 +2341,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2473,7 +2361,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2494,7 +2381,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2505,7 +2391,7 @@ namespace RWD.Toolbox.Strings.Address.Test
       {
          var dto = _addressParser.Parse("123 MAIN ST; 44047");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("123 MAIN ST; JEFFERSON OH  44047", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("123 MAIN ST  44047", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.AreEqual("123", dto.Number, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.AreEqual("MAIN", dto.Street, _testIgnoreCase);
@@ -2514,19 +2400,18 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryUnit));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
-         Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
-         Assert.AreEqual("OH", dto.State, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
       public void Testing_Number_Street_SuffixAbrv_Zip_Without_Delimiter()
       {
-         var dto = _addressParser.Parse("123 MAIN ST 44047");
+         var dto = _addressParser.Parse("123 MAIN ST  44047");
          Assert.IsNotNull(dto);
-         Assert.AreEqual("123 MAIN ST; JEFFERSON OH  44047", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
+         Assert.AreEqual("123 MAIN ST  44047", _addressFormatter.BuildSingleLine(dto), _testIgnoreCase);
          Assert.AreEqual("123", dto.Number, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.PreDirectional));
          Assert.AreEqual("MAIN", dto.Street, _testIgnoreCase);
@@ -2535,11 +2420,10 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryUnit));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
-         Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
-         Assert.AreEqual("OH", dto.State, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2557,10 +2441,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("D", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("CHESAPEAKE", dto.City, _testIgnoreCase);
-         Assert.AreEqual("CHESAPEAKE CITY", dto.County, _testIgnoreCase);
          Assert.AreEqual("VA", dto.State, _testIgnoreCase);
          Assert.AreEqual("23324", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2578,10 +2461,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("A", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2599,10 +2481,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("1A", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2620,10 +2501,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047-1447", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2641,10 +2521,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2662,10 +2541,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2683,10 +2561,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2704,10 +2581,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2725,10 +2601,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2746,10 +2621,9 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("JEFFERSON", dto.City, _testIgnoreCase);
-         Assert.AreEqual("ASHTABULA", dto.County, _testIgnoreCase);
          Assert.AreEqual("OH", dto.State, _testIgnoreCase);
          Assert.AreEqual("44047", dto.ZipPlus4, _testIgnoreCase);
-         Assert.AreEqual("UNITED STATES", dto.Country, _testIgnoreCase);
+         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
       }
 
       [TestMethod()]
@@ -2767,7 +2641,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("MONTREAL", dto.City, _testIgnoreCase);
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.AreEqual("QC", dto.State, _testIgnoreCase);
          Assert.AreEqual("H3Z 2Y7", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("CANADA", dto.Country, _testIgnoreCase);
@@ -2788,7 +2661,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("MONTREAL", dto.City, _testIgnoreCase);
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.AreEqual("QC", dto.State, _testIgnoreCase);
          Assert.AreEqual("H3Z 2Y7", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("CANADA", dto.Country, _testIgnoreCase);
@@ -2809,7 +2681,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("MILLARVILLE", dto.City, _testIgnoreCase);
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.AreEqual("AB", dto.State, _testIgnoreCase);
          Assert.AreEqual("T0L 1K0", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("CANADA", dto.Country, _testIgnoreCase);
@@ -2830,7 +2701,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.SecondaryNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.AreEqual("MILLARVILLE", dto.City, _testIgnoreCase);
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.AreEqual("AB", dto.State, _testIgnoreCase);
          Assert.AreEqual("T0L 1K0", dto.ZipPlus4, _testIgnoreCase);
          Assert.AreEqual("CANADA", dto.Country, _testIgnoreCase);
@@ -2851,7 +2721,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("2", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2872,7 +2741,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("12A", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2893,7 +2761,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("12A", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));
@@ -2914,7 +2781,6 @@ namespace RWD.Toolbox.Strings.Address.Test
          Assert.AreEqual("12A", dto.SecondaryNumber, _testIgnoreCase);
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.POBoxNumber));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.City));
-         Assert.IsTrue(string.IsNullOrWhiteSpace(dto.County));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.State));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.ZipPlus4));
          Assert.IsTrue(string.IsNullOrWhiteSpace(dto.Country));

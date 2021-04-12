@@ -11,7 +11,6 @@
       public const string SecondaryNumber = "SecondaryNumber";
       public const string POBoxNumber = "POBoxNumber";
       public const string City = "City";
-      public const string County = "County";
       public const string State = "State";
       public const string ZipPlus4 = "ZipPlus4";
       public const string Country = "Country";

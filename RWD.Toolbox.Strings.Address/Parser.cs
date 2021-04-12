@@ -16,37 +16,36 @@ namespace RWD.Toolbox.Strings.Address
       /// <param name="value">Address as a single line <see cref="string"/></param>
       /// <returns><see cref="Common.DTO.Address"/></returns>
       Common.DTO.Address Parse(string value);
-      //Task<Common.DTO.Address> ParseAsync(string value);
+
+      /// <summary>
+      /// Use RegEx Option in compiled mode
+      /// </summary>
+      /// <remarks>
+      /// Using RexEx in compiled mode will significantly increase performance with repeated use (ie in a loop).
+      /// Use with this mode sparingly as it will cause a performance hit upfront before a benefit is realized.
+      /// </remarks>
+      bool UseCompiled { get; set; }
    }
 
    public class Parser : IParser
    {
       private readonly IRegExHelper _regExHelper;
       private readonly Common.DTO.IMasterCodeSet _masterCodeSet;
-      private readonly Regex _addressRegex_Compiled;
+      private Regex _addressRegex_Compiled;
+
+      /// <inheritdoc/>
+      public bool UseCompiled { get; set; }
 
       /// <summary>
       /// Constructor 
       /// </summary>
-      public Parser()
+      public Parser(IRegExHelper regExHelper, Common.DTO.IMasterCodeSet masterCodeSet)
       {
-         // TODO register in DI 
-         _regExHelper = new RegExHelper();
-         _masterCodeSet = new MasterCodeSet();
-         _addressRegex_Compiled = BuildCompiledRegex();
-
+         _regExHelper = regExHelper;
+         _masterCodeSet = masterCodeSet;
+         // _addressRegex_Compiled = BuildCompiledRegex();
       }
-
-      /// <summary>
-      /// Build compiled RegEx for efficiency
-      /// </summary>
-      /// <returns></returns>
-      private Regex BuildCompiledRegex()
-      {
-         var reg = new Regex(_regExHelper.AddressPattern, RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace | RegexOptions.IgnoreCase);
-         reg.Match("");
-         return reg;
-      }
+         
 
       /// <inheritdoc/>
       public Common.DTO.Address Parse(string value)
@@ -56,12 +55,17 @@ namespace RWD.Toolbox.Strings.Address
          if (!string.IsNullOrWhiteSpace(value))
          {
             MatchCollection matches;
-            if (_addressRegex_Compiled == null)
+            if (!UseCompiled)
             {
                matches = Regex.Matches(value, _regExHelper.AddressPattern, RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace | RegexOptions.IgnoreCase);
             }
             else
             {
+               if (_addressRegex_Compiled == null)
+               {
+                  var masterPattern = _regExHelper.AddressPattern;
+                  _addressRegex_Compiled = new Regex(masterPattern, RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace | RegexOptions.IgnoreCase);
+               }
                matches = _addressRegex_Compiled.Matches(value);
             }
             if (matches.Count == 1)
@@ -79,7 +83,6 @@ namespace RWD.Toolbox.Strings.Address
                   newAddress.SecondaryNumber = GetNormalizedValueForField(match, RegExGroupNames.SecondaryNumber);
                   newAddress.POBoxNumber = GetNormalizedValueForField(match, RegExGroupNames.POBoxNumber);
                   newAddress.City = GetNormalizedValueForField(match, RegExGroupNames.City);
-                  newAddress.County = GetNormalizedValueForField(match, RegExGroupNames.County);
                   newAddress.State = GetNormalizedValueForField(match, RegExGroupNames.State);
                   newAddress.ZipPlus4 = GetNormalizedValueForField(match, RegExGroupNames.ZipPlus4);
                   newAddress.Country = GetNormalizedValueForField(match, RegExGroupNames.Country);
@@ -90,9 +93,6 @@ namespace RWD.Toolbox.Strings.Address
                      newAddress.SecondaryUnit = "APT";
                   }
 
-                  newAddress = FillEmptyBasedOnZip(newAddress);
-                  newAddress = FillEmptyBasedOnCityState(newAddress);
-
                }
             }
          }
@@ -101,15 +101,6 @@ namespace RWD.Toolbox.Strings.Address
 
       }
 
-      // TODO create async version and interface entry
-      //public async Task<Common.DTO.Address> ParseAsync(string value)
-      //{
-      //  // return await Task.Run(async => ParseAddress(value));
-      //}
-
-
-
-      // TODO keep here or move?
       private string GetNormalizedValueForField(Match match, string groupName)
       {
          string value = match.Groups[groupName].Value;
@@ -210,51 +201,6 @@ namespace RWD.Toolbox.Strings.Address
             }
          }
          return result;
-      }
-
-
-
-      // TODO keep here or move to a new helper?
-      private Common.DTO.Address FillEmptyBasedOnZip(Common.DTO.Address dto)
-      {
-         // TODO Canada may lookup by first three letters
-
-         if (!string.IsNullOrWhiteSpace(dto.ZipPlus4) && _masterCodeSet != null)
-         {
-            var zipcode = string.Empty;
-            var idx = dto.ZipPlus4.IndexOf("-");
-            if (idx > -1)
-               zipcode = dto.ZipPlus4.Substring(0, idx);
-            else
-               zipcode = dto.ZipPlus4;
-
-
-            var zipDto = _masterCodeSet.ZipCodes.FirstOrDefault(d => d.ZipCode == zipcode);
-            if (zipDto != null && string.IsNullOrWhiteSpace(dto.City))
-               dto.City = zipDto.City;
-            if (zipDto != null && string.IsNullOrWhiteSpace(dto.State))
-               dto.State = zipDto.StateCode;
-            if (zipDto != null && string.IsNullOrWhiteSpace(dto.County))
-               dto.County = zipDto.County;
-            if (zipDto != null && string.IsNullOrWhiteSpace(dto.Country))
-               dto.Country = "UNITED STATES";
-         }
-         return dto;
-      }
-
-      // TODO keep here or move to a new helper?
-      private Common.DTO.Address FillEmptyBasedOnCityState(Common.DTO.Address dto)
-      {
-         // TODO Canada may lookup by first three letters
-
-         if (_masterCodeSet != null && !string.IsNullOrWhiteSpace(dto.City) && !string.IsNullOrWhiteSpace(dto.State))
-         {
-            var zipDto = _masterCodeSet.ZipCodes.FirstOrDefault(d => d.StateCode == dto.State && string.Compare(d.City, dto.City, true) == 0);
-            if (zipDto != null && string.IsNullOrWhiteSpace(dto.ZipPlus4)) dto.ZipPlus4 = zipDto.ZipCode;
-            if (zipDto != null && string.IsNullOrWhiteSpace(dto.County)) dto.County = zipDto.County;
-            if (zipDto != null && string.IsNullOrWhiteSpace(dto.Country)) dto.Country = "UNITED STATES";
-         }
-         return dto;
       }
 
    }

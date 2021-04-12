@@ -48,12 +48,7 @@
       /// <summary>
       /// The city name.
       /// </summary>
-      string City { get; set; }
-
-      /// <summary>
-      /// The County Code
-      /// </summary>
-      string County { get; set; }
+      string City { get; set; }   
 
       /// <summary>
       /// The state or territory.

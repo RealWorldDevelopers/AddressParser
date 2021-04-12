@@ -1,34 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using RWD.Toolbox.Strings.Address.Demo.Models;
-using RWD.Toolbox.Strings.Address;
 using System;
 using System.Diagnostics;
 using System.Text;
 
-namespace RWD.Toolbox.AddressParser.WebDemo.Controllers
+namespace RWD.Toolbox.Strings.Address.Demo.Controllers
 {
    public class HomeController : Controller
    {
-      private readonly ILogger<HomeController> _logger;
-
       private readonly IParser _addressParser;
       private readonly IFormatter _addressFormatter;
       private readonly IRegExHelper _regExHelper;
 
-      public HomeController(ILogger<HomeController> logger)
+      public HomeController(IParser parser, IRegExHelper regExHelper, IFormatter formatter )
       {
-         // TODO use DI
-         _logger = logger;
-         _addressParser = new Parser();
-         _addressFormatter = new Formatter();
-         _regExHelper = new RegExHelper();
+         _regExHelper = regExHelper;
+         _addressParser = parser;
+         _addressFormatter = formatter;
       }
 
       public IActionResult Index()
       {
-         var model = new IndexViewModel();
-         model.InputString = "7768 s anderson ave ne apartment   2   PO Box 99 warren  ohio 44484-9987 usa";
+         var model = new IndexViewModel
+         {
+            InputString = "7768 s anderson ave ne apartment   2   PO Box 99 warren  ohio 44484-9987 usa"
+         };
          return View(model);
       }
 
@@ -66,16 +62,12 @@ namespace RWD.Toolbox.AddressParser.WebDemo.Controllers
       }
 
 
-      public string UpdateParseResultDisplay(string address)
+      private string UpdateParseResultDisplay(string address)
       {
          var sb = new StringBuilder();
 
          var dto = _addressParser.Parse(address);
-
-         // TODO async and thread
-
-         // TODO compare patterns this first
-
+          
 
          // display block
          var full = "FullAddress: " + _addressFormatter.BuildSingleLine(dto);
@@ -110,8 +102,6 @@ namespace RWD.Toolbox.AddressParser.WebDemo.Controllers
 
          var city = "City: " + dto.City;
          sb.AppendLine(city);
-         var county = "County: " + dto.County;
-         sb.AppendLine(county);
          var state = "State: " + dto.State;
          sb.AppendLine(state);
          var zip = "ZipPlus4: " + dto.ZipPlus4;

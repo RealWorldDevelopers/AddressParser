@@ -1,15 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using RWD.Toolbox.Strings.Address.Common.DTO;
 
-namespace RWD.Toolbox.AddressParser.WebDemo
+namespace RWD.Toolbox.Strings.Address.Demo
 {
    public class Startup
    {
@@ -23,6 +19,11 @@ namespace RWD.Toolbox.AddressParser.WebDemo
       // This method gets called by the runtime. Use this method to add services to the container.
       public void ConfigureServices(IServiceCollection services)
       {
+         services.AddSingleton<IMasterCodeSet, MasterCodeSet>();
+         services.AddSingleton<IRegExHelper, RegExHelper>();
+         services.AddSingleton<IParser, Parser>();
+         services.AddSingleton<IFormatter, Formatter>();
+
          services.AddControllersWithViews();
       }
 

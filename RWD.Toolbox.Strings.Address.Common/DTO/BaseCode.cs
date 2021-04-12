@@ -1,9 +1,8 @@
-﻿using System;
-
+﻿
 namespace RWD.Toolbox.Strings.Address.Common.DTO
 {
    /// <summary>
-   /// A base class which can be used by most typical entity DTOs for code tables
+   /// A base class which can be used by most DTOs for code tables
    /// </summary>
    /// <remarks>
    /// DO NOT assume that code entity DTOs inherit from this class.  If this 
@@ -25,40 +24,7 @@ namespace RWD.Toolbox.Strings.Address.Common.DTO
 
       /// <inheritdoc/>
       public bool RequiresRange { get; set; }
-
-      /// <summary>
-      /// Returns the Description Property as the ToString Method
-      /// </summary>
-      /// <returns><see cref="String"/></returns>
-      public override string ToString()
-      {
-         return Description;
-      }
-
-      /// <summary>
-      /// Compare two Code Objects by Id
-      /// </summary>
-      /// <param name="obj">Object to Compare as <see cref="Object"/></param>
-      /// <returns>Compare Results as <see cref="Boolean"/></returns>
-      public override bool Equals(object obj)
-      {
-         // TODO is this needed?
-         bool result = false;
-         if (obj.GetType() == this.GetType())
-         {
-            BaseCode other = (BaseCode)obj;
-            if (((other != null) && Id.HasValue && other.Id.HasValue && (other.Id.Value == Id.Value)))
-               result = true;
-         }
-         return result;
-      }
-
-      public override int GetHashCode()
-      {
-         // TODO not sure what this is yet
-         throw new NotImplementedException();
-      }
-
+          
    }
 
    /// <inheritdoc/>
