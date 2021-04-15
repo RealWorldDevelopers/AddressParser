@@ -1,0 +1,480 @@
+{
+  "homepages": [],
+  "source_base_path": "E:/Source/RWD.Toolbox.AddressParser/RWD.Toolbox.Strings.Address/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Formatter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Formatter.html",
+          "hash": "HvUq6Tm+RkUy15DpjsEpmbkpZYAbBe/ayv1EunrcO04="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.IFormatter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.IFormatter.html",
+          "hash": "Wmpj88oygJHtc5AUbpPAd/NaBESnA/SYZ11BEVj7GKQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.IParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.IParser.html",
+          "hash": "5vikHafc91zEDRh3I+G+Gf2NGjw4ZDoW2dxKrgtCRG4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.IRegExHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.IRegExHelper.html",
+          "hash": "nUDZVwXbRbkjvCql4wZ233eLJ3JNokSDiHCiq0FCj7A="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.Address.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.Address.html",
+          "hash": "GS62xBJnbZSsjxXIBd/ePzO2Jt7tHgzp8/BvzhUrMf4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.BaseAlias.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.BaseAlias.html",
+          "hash": "y91VdSCnm7F+A2in6ks9HfkmsibUQ3uvq+NZoArCeE4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.BaseCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.BaseCode.html",
+          "hash": "7n79iI0nA7/wtSN9Fxo42PDIR+/DZtUg5lFlwAvJ7MA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.CountryAlias.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.CountryAlias.html",
+          "hash": "F1CLrsl3kcAMzPVfoJgAeXEyx9CuA5DYd/JusyKiwJA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.CountryCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.CountryCode.html",
+          "hash": "c9shiWVyvXot2dxNijrGjt21tpLRfjku5SKADe1+ROw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.DirectionalAlias.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.DirectionalAlias.html",
+          "hash": "JGHKjhF5pl9l3jEvDGKkTqIVJMnYUM9tCNzAMYaSBko="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.DirectionalCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.DirectionalCode.html",
+          "hash": "ja2bLeGOvFG9F6839zVJDSLWKmPu1FxzE/yAvQJjVWo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.IAddress.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.IAddress.html",
+          "hash": "gvo3eay7atXUUMotI1Iu+UIj+LksDSGBlAAGhEwkAI8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.ICode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.ICode.html",
+          "hash": "skyzfPgHI2n517/yiu9OY4FYEWAotKHmHcd7xy6ZyzY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.ICodeAlias.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.ICodeAlias.html",
+          "hash": "0zv/64bgd4LTNkNiqoCDZYxnKWmWnb5tIehDWQzwcts="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.html",
+          "hash": "X6aLRHlQD5Nxci+82Ccg4qNuudHm6Bayqa3Y+KbNDoE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.IPostalCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.IPostalCode.html",
+          "hash": "ljFf8ZgixzVVmCSpghpYQnlGCV+189Fz+igPlnWf2YQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.IStateCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.IStateCode.html",
+          "hash": "mhc4NtzQ6fSRespxHsTpruD0flOt5M6uOQuFu4TO8l8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.MasterCodeSet.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.MasterCodeSet.html",
+          "hash": "3SwwAtdrNK26RqhA5aII1IS4OwfhxLR+ngFJre+R6CU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.PostalCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.PostalCode.html",
+          "hash": "kLcgSxfx34rHX8K1M1AI7RymphQR7GSBNbq3jsZLkPY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.StateAlias.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.StateAlias.html",
+          "hash": "LQHwopEXxVXKqRNL8Y2wIMGplExhtgz3rPWPD5f+nNo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.StateCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.StateCode.html",
+          "hash": "jOjxsfeaeBRqTOp+mp2yDbwiwK8EYdrkavWVrw/r8FQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.StreetSecondaryUnitAlias.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.StreetSecondaryUnitAlias.html",
+          "hash": "xyNf4dgDNZx0c7G6A3iXfv/sT6jAmswMSi6tAmox0pU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.StreetSecondaryUnitCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.StreetSecondaryUnitCode.html",
+          "hash": "vrsgFjYZDcvkts4av0CM1I0Na7c+FHdFUeCIpJ3Aa7A="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.StreetSuffixAlias.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.StreetSuffixAlias.html",
+          "hash": "WipdO9V6D5l+OGc04xKnoarDBmkbbWQuqGwC7GCeOd8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.StreetSuffixCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.StreetSuffixCode.html",
+          "hash": "xMlp5Fwd/cDm8Wm4iosgjju3/PHxZhjfFeI4Gla45VA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Models.html",
+          "hash": "Q9PJXmFhsWR90FS0AJD9X0u7Xnqf+I9LEz7+vkAcxrQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.Parser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.Parser.html",
+          "hash": "HIKvDcBD1XFujuBJXrQ8GYSKXqjc0m/eCciHsw1Sutk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.RegExGroupNames.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.RegExGroupNames.html",
+          "hash": "+aakcyKklgmvARm/ODV9oUfugPxv21ohs6InJyPGcyE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.RegExHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.RegExHelper.html",
+          "hash": "R2GSutaup/3ZInAUYQDEHBB/yTm5o2yk55CzmwXGMsw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RWD.Toolbox.Strings.Address.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RWD.Toolbox.Strings.Address.html",
+          "hash": "OShBBEVCOD8k0SsS3DiyA0ix1Nj3hcK7asqCU0nRLjk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "rsK59/eYH870Mah1SkeBvjK6x9IJjyKcjNcuCkiTl8M="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "3Pq+AVGAG4nCQQE0++n8Y6d7YBJ1OkMu2ZAYoYTkedo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/RWDevs-header.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "images/RWDevs-header.jpg"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "e402lfYAP9P5w5mRjpIPIVL3+iBKN8xPGCHA4AvkZaw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "MxWDrZV5dgzJqZOxzro0xTfDtpmHhoWMwAA+m8KFc+8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 2,
+          "skipped_file_count": 2
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 30,
+          "skipped_file_count": 30
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
