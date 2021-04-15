@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RWD.Toolbox.Strings.Address.Common.DTO
+namespace RWD.Toolbox.Strings.Address.Models
 {
    /// <summary>
    /// An entity DTO for a code tables
@@ -26,7 +26,7 @@ namespace RWD.Toolbox.Strings.Address.Common.DTO
       /// <summary>
       /// Does Unit Code expect a Range as a Value
       /// </summary>
-      /// <returns>Unit Code expect a range as a value as <see cref="Boolean"/></returns>
+      /// <returns>Unit Code expect a range as a value as <see cref="bool"/></returns>
       public bool RequiresRange { get; set; }
    }
 

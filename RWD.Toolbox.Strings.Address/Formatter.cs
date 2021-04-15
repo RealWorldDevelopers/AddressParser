@@ -18,21 +18,21 @@ namespace RWD.Toolbox.Strings.Address
       /// </summary>
       /// <param name="dto">Address as <see cref="Address"/></param>
       /// <returns>Address as <see cref="String"/></returns>
-      string BuildStreetLine(Common.DTO.Address dto);
+      string BuildStreetLine(Models.Address dto);
 
       /// <summary>
       /// Builds Address as a Single Line (ie 123 Any Ave MyCity ST Z2345)
       /// </summary>
       /// <param name="dto">Address as <see cref="Address"/></param>
       /// <returns>Address as <see cref="String"/></returns>
-      string BuildSingleLine(Common.DTO.Address dto);
+      string BuildSingleLine(Models.Address dto);
 
       /// <summary>
       /// Builds Address as a Multi Line (ie Line 1:123 Any Ave Line 2:MyCity ST Z2345)
       /// </summary>
       /// <param name="dto">Address as <see cref="Address"/></param>
       /// <returns>Address as <see cref="String"/></returns>
-      string BuildMultiline(Common.DTO.Address dto);
+      string BuildMultiline(Models.Address dto);
 
       /// <summary>
       /// Builds Address as a Multi Line (ie Line 1:123 Any Ave Line 2:MyCity ST Z2345)
@@ -50,7 +50,7 @@ namespace RWD.Toolbox.Strings.Address
       readonly TextInfo _textInfoTool = CultureInfo.CurrentCulture.TextInfo;
 
       /// <inheritdoc/>
-      public string BuildStreetLine(Common.DTO.Address dto)
+      public string BuildStreetLine(Models.Address dto)
       {
          return BuildStreetLine(dto.Number, dto.PreDirectional, dto.Street, dto.Suffix, dto.PostDirectional, dto.SecondaryUnit, dto.SecondaryNumber);
       }
@@ -72,7 +72,7 @@ namespace RWD.Toolbox.Strings.Address
       }
 
       /// <inheritdoc/>
-      public string BuildSingleLine(Common.DTO.Address dto)
+      public string BuildSingleLine(Models.Address dto)
       {
          return BuildSingleLine(BuildStreetLine(dto), dto.POBoxNumber, dto.City, dto.State, dto.ZipPlus4, dto.Country);
       }
@@ -126,7 +126,7 @@ namespace RWD.Toolbox.Strings.Address
       }
 
       /// <inheritdoc/>
-      public string BuildMultiline(Common.DTO.Address dto)
+      public string BuildMultiline(Models.Address dto)
       {
          return BuildMultiline(BuildStreetLine(dto), dto.POBoxNumber, dto.City, dto.State, dto.ZipPlus4, dto.Country);
       }

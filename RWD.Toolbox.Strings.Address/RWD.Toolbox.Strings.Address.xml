@@ -1,0 +1,771 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RWD.Toolbox.Strings.Address</name>
+    </assembly>
+    <members>
+        <member name="T:RWD.Toolbox.Strings.Address.IFormatter">
+            <summary>
+            Format an Address
+            </summary>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.IFormatter.BuildStreetLine(RWD.Toolbox.Strings.Address.Models.Address)">
+            <summary>
+            Builds Street Line of an Address (ie 123 Any Street)
+            </summary>
+            <param name="dto">Address as <see cref="N:RWD.Toolbox.Strings.Address"/></param>
+            <returns>Address as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.IFormatter.BuildSingleLine(RWD.Toolbox.Strings.Address.Models.Address)">
+            <summary>
+            Builds Address as a Single Line (ie 123 Any Ave MyCity ST Z2345)
+            </summary>
+            <param name="dto">Address as <see cref="N:RWD.Toolbox.Strings.Address"/></param>
+            <returns>Address as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.IFormatter.BuildMultiline(RWD.Toolbox.Strings.Address.Models.Address)">
+            <summary>
+            Builds Address as a Multi Line (ie Line 1:123 Any Ave Line 2:MyCity ST Z2345)
+            </summary>
+            <param name="dto">Address as <see cref="N:RWD.Toolbox.Strings.Address"/></param>
+            <returns>Address as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.IFormatter.BuildMultiline(System.String)">
+            <summary>
+            Builds Address as a Multi Line (ie Line 1:123 Any Ave Line 2:MyCity ST Z2345)
+            </summary>
+            <param name="fullParseAddress">Address as <see cref="T:System.String"/></param>
+            <returns>Address as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Formatter">
+            <inheritdoc/>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.Formatter.BuildStreetLine(RWD.Toolbox.Strings.Address.Models.Address)">
+            <inheritdoc/>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.Formatter.BuildSingleLine(RWD.Toolbox.Strings.Address.Models.Address)">
+            <inheritdoc/>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.Formatter.BuildMultiline(RWD.Toolbox.Strings.Address.Models.Address)">
+            <inheritdoc/>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.Formatter.BuildMultiline(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.IRegExHelper">
+            <summary>
+            Helper to assist in Building a Regular Expression
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.DirectionalPattern">
+            <summary>
+            Pattern used to Parse and Validate a Direction
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.SuffixPattern">
+            <summary>
+            A Regular Expression to Parse and Validate a Street Suffix
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.RangedSecondaryUnitPattern">
+            <summary>
+            A Regular Expression to Parse and Validate a Ranged Secondary Unit
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.RangelessSecondaryUnitPattern">
+            <summary>
+            A Regular Expression to Parse and Validate a Range-less Secondary Unit 
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.StatePattern">
+            <summary>
+            A Regular Expression to Parse and Validate a States
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.PostalCodePattern">
+            <summary>
+            A Regular Expression to Parse and Validate a Postal Codes
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.CountryPattern">
+            <summary>
+            A Regular Expression to Parse and Validate a Country
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.NumberPattern">
+            <summary>
+            A Regular Expression to Parse and Validate a Street Number
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.AllSecondaryUnitPattern">
+            <summary>
+            A Regular Expression to Parse and Validate a Full Secondary Unit
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.DirectionStreetPattern">
+            <summary>
+            A Regular Expression to Parse and Validate a Street Direction
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.StreetPattern">
+            <summary>
+            A Regular Expression to Parse and Validate a Street
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.CityAndStatePattern">
+            <summary>
+            A Regular Expression to Parse and Validate a City State Combo
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.PlacePattern">
+            <summary>
+            A Regular Expression to Parse and Validate a Place
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.POBoxPattern">
+            <summary>
+            A Regular Expression to Parse and Validate a PO Box
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IRegExHelper.AddressPattern">
+            <summary>
+            A Regular Expression to Parse and Validate an Address
+            </summary>
+            <returns>RegEx Pattern as <see cref="T:System.String"/></returns>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.Address">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.Number">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.PreDirectional">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.Street">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.Suffix">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.PostDirectional">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.SecondaryUnit">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.SecondaryNumber">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.POBoxNumber">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.City">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.State">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.ZipPlus4">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.Address.Country">
+            <inheritdoc/>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.BaseCode">
+            <summary>
+            A base class which can be used by most DTOs for code tables
+            </summary>
+            <remarks>
+            DO NOT assume that code entity DTOs inherit from this class.  If this 
+            implementation is insufficient for a particular class of DTO, that class 
+            should not inherit from this base class.  Rather, it should implement the 
+            <see cref="T:RWD.Toolbox.Strings.Address.Models.ICode"/> interface directly, providing its own custom 
+            implementation.
+            </remarks>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.BaseCode.Id">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.BaseCode.Code">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.BaseCode.Description">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.BaseCode.RequiresRange">
+            <inheritdoc/>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.BaseAlias">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.BaseAlias.Id">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.BaseAlias.AliasName">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.BaseAlias.ForeignId">
+            <inheritdoc/>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.CountryCode">
+            <summary>
+            Entity DTO for Postal Country (ie CA, USA)
+            </summary>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.CountryAlias">
+            <summary>
+            An entity DTO for Terms Commonly Used for Postal Countries
+            </summary>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.DirectionalCode">
+            <summary>
+            Entity DTO for Postal Directions (ie N, E, S, W)
+            </summary>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.DirectionalAlias">
+            <summary>
+            An entity DTO for Terms Commonly Used for Postal Directions
+            </summary>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.IAddress">
+            <summary>
+            IO DTO Used representing an Address
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.Number">
+            <summary>
+            The house number.
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.PreDirectional">
+            <summary>
+            The pre-directional, such as "N" in "500 N Main St".
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.Street">
+            <summary>
+            The name of the street, such as "Main" in "500 N Main St".
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.Suffix">
+            <summary>
+            The street suffix, such as "ST" in "500 N MAIN ST".
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.PostDirectional">
+            <summary>
+            The post-directional, such as "NW" in "500 Main St NW".
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.SecondaryUnit">
+            <summary>
+            The secondary unit, such as "APT" in "500 N MAIN ST APT 3".
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.SecondaryNumber">
+            <summary>
+            The secondary unit number, such as "3" in "500 N MAIN ST APT 3".
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.POBoxNumber">
+            <summary>
+            Post Office Box Number
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.City">
+            <summary>
+            The city name.
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.State">
+            <summary>
+            The state or territory.
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.ZipPlus4">
+            <summary>
+            The ZIP code.
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IAddress.Country">
+            <summary>
+            The Country Code.
+            </summary>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.ICode">
+            <summary>
+            An entity DTO for a code tables
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.ICode.Id">
+            <summary>
+            The hidden unique ID for the code
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.ICode.Code">
+            <summary>
+            The short but meaningful abbreviation for the code which may be displayed to or entered by users
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.ICode.Description">
+            <summary>
+            The full name or long description of the code which may be displayed to users
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.ICode.RequiresRange">
+            <summary>
+            Does Unit Code expect a Range as a Value
+            </summary>
+            <returns>Unit Code expect a range as a value as <see cref="T:System.Boolean"/></returns>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.ICodeAlias">
+            <summary>
+            An entity DTO for aliases of a code table
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.ICodeAlias.Id">
+            <summary>
+            The unique ID for the alias
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.ICodeAlias.AliasName">
+            <summary>
+            A commonly used abbreviation that is not an actual code 
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.ICodeAlias.ForeignId">
+            <summary>
+            Id of the Related Table
+            </summary>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet">
+            <summary>
+             Set of Codes Needed for Address Control to Function
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.DirectionalCodes">
+            <summary>
+            List of Direction Codes Needed for Address Control to Function
+            </summary>
+            <returns>List of Codes as <see cref="T:System.Collections.Generic.List`1"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.DirectionalAliases">
+            <summary>
+            List of Directional Aliases Codes Needed for Address Control to Function
+            </summary>
+            <returns>List of Codes as <see cref="T:System.Collections.Generic.List`1"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.StreetSuffixCodes">
+            <summary>
+            List of Street Suffix Codes Needed for Address Control to Function
+            </summary>
+            <returns>List of Codes as <see cref="T:System.Collections.Generic.List`1"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.StreetSuffixAliases">
+            <summary>
+            List of Street Suffix Aliases Codes Needed for Address Control to Function
+            </summary>
+            <returns>List of Codes as <see cref="T:System.Collections.Generic.List`1"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.StreetSecondaryUnitCodes">
+            <summary>
+            List of Street Secondary Unit Codes Needed for Address Control to Function
+            </summary>
+            <returns>List of Codes as <see cref="T:System.Collections.Generic.List`1"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.StreetSecondaryUnitAliases">
+            <summary>
+            List of Street Secondary Unit Alias Codes Needed for Address Control to Function
+            </summary>
+            <returns>List of Codes as <see cref="T:System.Collections.Generic.List`1"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.StateCodes">
+            <summary>
+            List of State Codes Needed for Address Control to Function
+            </summary>
+            <returns>List of Codes as <see cref="T:System.Collections.Generic.List`1"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.StateAliases">
+            <summary>
+            List of State Alias Codes Needed for Address Control to Function
+            </summary>
+            <returns>List of Codes as <see cref="T:System.Collections.Generic.List`1"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.CountryCodes">
+            <summary>
+            List of Country Codes Needed for Address Control to Function
+            </summary>
+            <returns>List of Codes as <see cref="T:System.Collections.Generic.List`1"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet.CountryAliases">
+            <summary>
+            List of Country Alias Codes Needed for Address Control to Function
+            </summary>
+            <returns>List of Codes as <see cref="T:System.Collections.Generic.List`1"/></returns>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.IPostalCode">
+            <summary>
+            Entity DTO for Postal(Zip) codes
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IPostalCode.Id">
+            <summary>
+             Unique Identifier for Postal Code
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IPostalCode.City">
+            <summary>
+             State Code Associated with Zip
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IPostalCode.StateCode">
+            <summary>
+             State Code Associated with Zip
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IPostalCode.ZipCode">
+            <summary>
+             Postal Zip Code
+            </summary>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.MasterCodeSet">
+            <summary>
+            Set of Codes Needed for Address Control to Function
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.MasterCodeSet.DirectionalCodes">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.MasterCodeSet.DirectionalAliases">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.MasterCodeSet.StreetSuffixCodes">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.MasterCodeSet.StreetSuffixAliases">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.MasterCodeSet.StreetSecondaryUnitCodes">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.MasterCodeSet.StreetSecondaryUnitAliases">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.MasterCodeSet.StateCodes">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.MasterCodeSet.StateAliases">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.MasterCodeSet.CountryCodes">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.MasterCodeSet.CountryAliases">
+            <inheritdoc/>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.PostalCode">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.PostalCode.Id">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.PostalCode.ZipCode">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.PostalCode.City">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.PostalCode.StateCode">
+            <inheritdoc/>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.IStateCode">
+            <summary>
+            Entity DTO for Postal State (ie OH, FL, PA)
+            </summary>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.IStateCode.CountryCodeId">
+            <summary>
+            Country where County Resides
+            </summary>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.StateCode">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Models.StateCode.CountryCodeId">
+            <inheritdoc/>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.StateAlias">
+            <inheritdoc/>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.StreetSecondaryUnitCode">
+            <inheritdoc/>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.StreetSecondaryUnitAlias">
+            <inheritdoc/>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.StreetSuffixCode">
+            <summary>
+            Entity DTO for Postal Street Suffixes (ie St, Ave, Rd)
+            </summary>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Models.StreetSuffixAlias">
+            <summary>
+            An entity DTO for Terms Commonly Used for Postal Street Suffixes
+            </summary>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.IParser">
+            <summary>
+            Parse a String into an Address
+            </summary>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.IParser.Parse(System.String)">
+            <summary>
+            Parse a string value into an Address
+            </summary>
+            <param name="value">Address as a single line <see cref="T:System.String"/></param>
+            <returns><see cref="T:RWD.Toolbox.Strings.Address.Models.Address"/></returns>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.IParser.UseCompiled">
+            <summary>
+            Use RegEx Option in compiled mode
+            </summary>
+            <remarks>
+            Using RexEx in compiled mode will significantly increase performance with repeated use (ie in a loop).
+            Use with this mode sparingly as it will cause a performance hit upfront before a benefit is realized.
+            </remarks>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.Parser">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.Parser.UseCompiled">
+            <inheritdoc/>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.Parser.#ctor(RWD.Toolbox.Strings.Address.IRegExHelper,RWD.Toolbox.Strings.Address.Models.IMasterCodeSet)">
+            <summary>
+            Constructor 
+            </summary>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.Parser.Parse(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.RegExGroupNames">
+            <summary>
+            Collection of Group Names used in the RegEx Matches
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.Number">
+            <summary>
+            Group Name for Street Number
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.PreDirectional">
+            <summary>
+            Group Name for PreDirectional
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.Street">
+            <summary>
+            Group Name for Street
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.Suffix">
+            <summary>
+            Group Name for Suffix
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.PostDirectional">
+            <summary>
+            Group Name for PostDirectional
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.SecondaryUnit">
+            <summary>
+            Group Name for Secondary Unit
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.SecondaryNumber">
+            <summary>
+            Group Name for Secondary Number
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.POBoxNumber">
+            <summary>
+            Group Name for PO Box Number
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.City">
+            <summary>
+            Group Name for City
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.State">
+            <summary>
+            Group Name for State
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.ZipPlus4">
+            <summary>
+            Group Name for Postal Code
+            </summary>
+        </member>
+        <member name="F:RWD.Toolbox.Strings.Address.RegExGroupNames.Country">
+            <summary>
+            Group Name for Country
+            </summary>
+        </member>
+        <member name="T:RWD.Toolbox.Strings.Address.RegExHelper">
+            <inheritdoc/>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.#ctor(RWD.Toolbox.Strings.Address.Models.IMasterCodeSet)">
+            <summary>
+            Constructor 
+            </summary>
+            <param name="masterCodeSet">CodeSet as <see cref="T:RWD.Toolbox.Strings.Address.Models.IMasterCodeSet"/></param>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.DirectionalPattern">
+            <inheritdoc/>
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.SuffixPattern">
+            <inheritdoc/> 
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.RangedSecondaryUnitPattern">
+            <inheritdoc/> 
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.RangelessSecondaryUnitPattern">
+            <inheritdoc/> 
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.StatePattern">
+            <inheritdoc/> 
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.PostalCodePattern">
+            <inheritdoc/> 
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.CountryPattern">
+            <inheritdoc/>  
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.NumberPattern">
+            <inheritdoc/>  
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.AllSecondaryUnitPattern">
+            <inheritdoc/>  
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.DirectionStreetPattern">
+            <inheritdoc/>  
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.StreetPattern">
+            <inheritdoc/>  
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.CityAndStatePattern">
+            <inheritdoc/>  
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.PlacePattern">
+            <inheritdoc/>  
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.POBoxPattern">
+            <inheritdoc/> 
+        </member>
+        <member name="P:RWD.Toolbox.Strings.Address.RegExHelper.AddressPattern">
+            <inheritdoc/>  
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreateDirectionalPattern">
+            <summary>
+            Create RegEx Pattern for Direction
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreateStreetSuffixPattern">
+            <summary>
+            Create RegEx Pattern for Street Suffix 
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreateSecondaryUnitPattern(System.Boolean)">
+            <summary>
+            Create RegEx Pattern for Secondary Unit
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreateStatePattern">
+            <summary>
+            Create RegEx Pattern for State
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreatePostalCodePattern">
+            <summary>
+            Create RegEx Pattern for Postal Codes
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreateCountryPattern">
+            <summary>
+            Create RegEx Pattern for Country
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreateNumberPattern">
+            <summary>
+            Create RegEx Pattern for Street Number
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreateSecondaryUnitPattern(System.String,System.String)">
+            <summary>
+            Create RegEx Pattern for Secondary Unit
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreateStreetNameSameAsDirectionPattern(System.String,System.String,System.String)">
+            <summary>
+            Create RegEx Pattern for Street Name that is a Direction
+            Example:  100 South St
+            </summary>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreateStreetPattern(System.String,System.String,System.String)">
+            <summary>
+            Create RegEx Pattern for Street
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreatePOBoxPattern">
+            <summary>
+            Create RegEx Pattern for PO Box
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreateCityStatePattern(System.String)">
+            <summary>
+            Create RegEx Pattern for City State Combo
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreatePlacePattern(System.String,System.String,System.String)">
+            <summary>
+            Create RegEx Pattern for Place
+            City State Country Zip
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:RWD.Toolbox.Strings.Address.RegExHelper.CreateAddressPattern(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Create RegEx Pattern for Address
+            </summary>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+    </members>
+</doc>

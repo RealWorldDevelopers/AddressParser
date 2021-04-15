@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RWD.Toolbox.Strings.Address.Common\RWD.Toolbox.Strings.Address.Common.csproj" />
     <ProjectReference Include="..\RWD.Toolbox.Strings.Address\RWD.Toolbox.Strings.Address.csproj" />
   </ItemGroup>
 

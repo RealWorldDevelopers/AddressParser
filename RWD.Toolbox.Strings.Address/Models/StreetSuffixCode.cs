@@ -1,5 +1,4 @@
-﻿
-namespace RWD.Toolbox.Strings.Address.Common.DTO
+﻿namespace RWD.Toolbox.Strings.Address.Models
 {
    /// <summary>
    /// Entity DTO for Postal Street Suffixes (ie St, Ave, Rd)

@@ -1,5 +1,5 @@
 ﻿
-namespace RWD.Toolbox.Strings.Address.Common.DTO
+namespace RWD.Toolbox.Strings.Address.Models
 {
    /// <summary>
    /// A base class which can be used by most DTOs for code tables
@@ -24,7 +24,7 @@ namespace RWD.Toolbox.Strings.Address.Common.DTO
 
       /// <inheritdoc/>
       public bool RequiresRange { get; set; }
-          
+
    }
 
    /// <inheritdoc/>

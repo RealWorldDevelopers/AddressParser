@@ -1,6 +1,4 @@
-﻿
-
-namespace RWD.Toolbox.Strings.Address.Common.DTO
+﻿namespace RWD.Toolbox.Strings.Address.Models
 {
 
    /// <inheritdoc/>
@@ -14,7 +12,7 @@ namespace RWD.Toolbox.Strings.Address.Common.DTO
       public string City { get; set; }
       /// <inheritdoc/>
       public string StateCode { get; set; }
-    
+
 
    }
 

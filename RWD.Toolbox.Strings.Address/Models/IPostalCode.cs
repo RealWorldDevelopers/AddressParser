@@ -1,6 +1,4 @@
-﻿
-
-namespace RWD.Toolbox.Strings.Address.Common.DTO
+﻿namespace RWD.Toolbox.Strings.Address.Models
 {
    /// <summary>
    /// Entity DTO for Postal(Zip) codes

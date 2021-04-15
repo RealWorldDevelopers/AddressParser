@@ -1,5 +1,4 @@
-﻿
-using RWD.Toolbox.Strings.Address.Common.DTO;
+﻿using RWD.Toolbox.Strings.Address.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +13,10 @@ namespace RWD.Toolbox.Strings.Address
    {
       private readonly IMasterCodeSet _masterCodeSet;
 
+      /// <summary>
+      /// Constructor 
+      /// </summary>
+      /// <param name="masterCodeSet">CodeSet as <see cref="IMasterCodeSet"/></param>
       public RegExHelper(IMasterCodeSet masterCodeSet)
       {
          _masterCodeSet = masterCodeSet;
@@ -99,21 +102,36 @@ namespace RWD.Toolbox.Strings.Address
          AddressPattern = CreateAddressPattern(NumberPattern, DirectionStreetPattern, StreetPattern, POBoxPattern, PlacePattern, PostalCodePattern);
       }
 
+      /// <inheritdoc/>
       public string DirectionalPattern { get; }
+      /// <inheritdoc/> 
       public string SuffixPattern { get; }
+      /// <inheritdoc/> 
       public string RangedSecondaryUnitPattern { get; }
+      /// <inheritdoc/> 
       public string RangelessSecondaryUnitPattern { get; }
+      /// <inheritdoc/> 
       public string StatePattern { get; }
+      /// <inheritdoc/> 
       public string PostalCodePattern { get; }
+      /// <inheritdoc/>  
       public string CountryPattern { get; }
+      /// <inheritdoc/>  
       public string NumberPattern { get; }
+      /// <inheritdoc/>  
       public string AllSecondaryUnitPattern { get; }
+      /// <inheritdoc/>  
       public string DirectionStreetPattern { get; }
+      /// <inheritdoc/>  
       public string StreetPattern { get; }
+      /// <inheritdoc/>  
       public string CityAndStatePattern { get; }
+      /// <inheritdoc/>  
       public string PlacePattern { get; }
+      /// <inheritdoc/> 
       public string POBoxPattern { get; }
 
+      /// <inheritdoc/>  
       public string AddressPattern { get; }
 
 

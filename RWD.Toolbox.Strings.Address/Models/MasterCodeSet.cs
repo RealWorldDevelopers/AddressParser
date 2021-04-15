@@ -1,75 +1,75 @@
 ﻿
 using System.Collections.Generic;
-using RWD.Toolbox.Strings.Address.Common.DTO;
 
-
-/// <summary>
-/// Set of Codes Needed for Address Control to Function
-/// </summary>
-public sealed class MasterCodeSet : IMasterCodeSet
+namespace RWD.Toolbox.Strings.Address.Models
 {
-   /// <inheritdoc/>
-   public List<DirectionalCode> DirectionalCodes
+   /// <summary>
+   /// Set of Codes Needed for Address Control to Function
+   /// </summary>
+   public sealed class MasterCodeSet : IMasterCodeSet
    {
-      get { return DirectionalTable; }
-   }
+      /// <inheritdoc/>
+      public List<DirectionalCode> DirectionalCodes
+      {
+         get { return DirectionalTable; }
+      }
 
-   /// <inheritdoc/>
-   public List<DirectionalAlias> DirectionalAliases
-   {
-      get { return DirectionalAliasesTable; }
-   }
+      /// <inheritdoc/>
+      public List<DirectionalAlias> DirectionalAliases
+      {
+         get { return DirectionalAliasesTable; }
+      }
 
-   /// <inheritdoc/>
-   public List<StreetSuffixCode> StreetSuffixCodes
-   {
-      get { return StreetSuffixTable; }
-   }
+      /// <inheritdoc/>
+      public List<StreetSuffixCode> StreetSuffixCodes
+      {
+         get { return StreetSuffixTable; }
+      }
 
-   /// <inheritdoc/>
-   public List<StreetSuffixAlias> StreetSuffixAliases
-   {
-      get { return StreetSuffixAliasTable; }
-   }
+      /// <inheritdoc/>
+      public List<StreetSuffixAlias> StreetSuffixAliases
+      {
+         get { return StreetSuffixAliasTable; }
+      }
 
-   /// <inheritdoc/>
-   public List<StreetSecondaryUnitCode> StreetSecondaryUnitCodes
-   {
-      get { return StreetSecondaryUnitTable; }
-   }
+      /// <inheritdoc/>
+      public List<StreetSecondaryUnitCode> StreetSecondaryUnitCodes
+      {
+         get { return StreetSecondaryUnitTable; }
+      }
 
-   /// <inheritdoc/>
-   public List<StreetSecondaryUnitAlias> StreetSecondaryUnitAliases
-   {
-      get { return StreetSecondaryUnitAliasTable; }
-   }
+      /// <inheritdoc/>
+      public List<StreetSecondaryUnitAlias> StreetSecondaryUnitAliases
+      {
+         get { return StreetSecondaryUnitAliasTable; }
+      }
 
-   /// <inheritdoc/>
-   public List<StateCode> StateCodes
-   {
-      get { return StateTable; }
-   }
+      /// <inheritdoc/>
+      public List<StateCode> StateCodes
+      {
+         get { return StateTable; }
+      }
 
-   /// <inheritdoc/>
-   public List<StateAlias> StateAliases
-   {
-      get { return StateAbrvLegacyTable; }
-   }
+      /// <inheritdoc/>
+      public List<StateAlias> StateAliases
+      {
+         get { return StateAbrvLegacyTable; }
+      }
 
-   /// <inheritdoc/>
-   public List<CountryCode> CountryCodes
-   {
-      get { return CountryTable; }
-   }
+      /// <inheritdoc/>
+      public List<CountryCode> CountryCodes
+      {
+         get { return CountryTable; }
+      }
 
-   /// <inheritdoc/>
-   public List<CountryAlias> CountryAliases
-   {
-      get { return CountryAliasTable; }
-   }
+      /// <inheritdoc/>
+      public List<CountryAlias> CountryAliases
+      {
+         get { return CountryAliasTable; }
+      }
 
 
-   private readonly List<DirectionalCode> DirectionalTable = new List<DirectionalCode>(new DirectionalCode[] {
+      private readonly List<DirectionalCode> DirectionalTable = new List<DirectionalCode>(new DirectionalCode[] {
         new DirectionalCode() { Id = 1, Code = "N", Description = "NORTH" },
         new DirectionalCode() { Id = 2, Code = "NE", Description = "NORTHEAST" },
         new DirectionalCode() { Id = 3, Code = "E", Description = "EAST" },
@@ -80,7 +80,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new DirectionalCode() { Id = 8, Code = "NW", Description = "NORTHWEST" }
     });
 
-   private readonly List<DirectionalAlias> DirectionalAliasesTable = new List<DirectionalAlias>(new DirectionalAlias[] {
+      private readonly List<DirectionalAlias> DirectionalAliasesTable = new List<DirectionalAlias>(new DirectionalAlias[] {
         new DirectionalAlias() { Id = 1, AliasName = "N.", ForeignId = 1 },
         new DirectionalAlias() { Id = 2, AliasName = "N.E.", ForeignId = 2 },
         new DirectionalAlias() { Id = 3, AliasName = "E.", ForeignId = 3 },
@@ -91,7 +91,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new DirectionalAlias() { Id = 8, AliasName = "N.W.", ForeignId = 8 }
     });
 
-   private readonly List<StreetSuffixCode> StreetSuffixTable = new List<StreetSuffixCode>(new StreetSuffixCode[] {
+      private readonly List<StreetSuffixCode> StreetSuffixTable = new List<StreetSuffixCode>(new StreetSuffixCode[] {
         new StreetSuffixCode() { Id = 1, Code = "ALY", Description = "ALLEY" },
         new StreetSuffixCode() { Id = 2, Code = "ANX", Description = "ANEX" },
         new StreetSuffixCode() { Id = 3, Code = "ARC", Description = "ARCADE" },
@@ -295,7 +295,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new StreetSuffixCode() { Id = 201, Code = "WLS", Description = "WELLS" }
     });
 
-   private readonly List<StreetSuffixAlias> StreetSuffixAliasTable = new List<StreetSuffixAlias>(new StreetSuffixAlias[] {
+      private readonly List<StreetSuffixAlias> StreetSuffixAliasTable = new List<StreetSuffixAlias>(new StreetSuffixAlias[] {
         new StreetSuffixAlias() { Id = 1, ForeignId = 1, AliasName = "ALLEE" },
         new StreetSuffixAlias() { Id = 2, ForeignId = 1, AliasName = "ALLY" },
         new StreetSuffixAlias() { Id = 3, ForeignId = 2, AliasName = "ANNEX" },
@@ -480,11 +480,11 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new StreetSuffixAlias() { Id = 183, ForeignId = 195, AliasName = "VSTA" }
     });
 
-   private readonly List<StreetSecondaryUnitAlias> StreetSecondaryUnitAliasTable = new List<StreetSecondaryUnitAlias>(new StreetSecondaryUnitAlias[] {
+      private readonly List<StreetSecondaryUnitAlias> StreetSecondaryUnitAliasTable = new List<StreetSecondaryUnitAlias>(new StreetSecondaryUnitAlias[] {
         new StreetSecondaryUnitAlias() { Id = 1, AliasName = "APPARTMENT", ForeignId = 2 }
     });
 
-   private readonly List<StreetSecondaryUnitCode> StreetSecondaryUnitTable = new List<StreetSecondaryUnitCode>(new StreetSecondaryUnitCode[] {
+      private readonly List<StreetSecondaryUnitCode> StreetSecondaryUnitTable = new List<StreetSecondaryUnitCode>(new StreetSecondaryUnitCode[] {
         new StreetSecondaryUnitCode() { Id = 1, Description = "SUITE", Code = "STE", RequiresRange = true },
         new StreetSecondaryUnitCode() { Id = 2, Description = "APARTMENT", Code = "APT", RequiresRange = true },
         new StreetSecondaryUnitCode() { Id = 3, Description = "DEPARTMENT", Code = "DEPT", RequiresRange = true },
@@ -512,7 +512,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new StreetSecondaryUnitCode() { Id = 25, Description = "UPPER", Code = "UPPR", RequiresRange = false }
     });
 
-   private readonly List<StateCode> StateTable = new List<StateCode>(new StateCode[] {
+      private readonly List<StateCode> StateTable = new List<StateCode>(new StateCode[] {
         new StateCode() { Id = 2, Code = "AB", CountryCodeId = 37, Description = "ALBERTA" },
         new StateCode() { Id = 3, Code = "BC", CountryCodeId = 37, Description = "BRITISH COLUMBIA" },
         new StateCode() { Id = 4, Code = "MB", CountryCodeId = 37, Description = "MANITOBA" },
@@ -587,7 +587,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new StateCode() { Id = 74, Code = "VI", CountryCodeId = 226, Description = "VIRGIN ISLANDS" }
     });
 
-   private readonly List<StateAlias> StateAbrvLegacyTable = new List<StateAlias>(new StateAlias[] {
+      private readonly List<StateAlias> StateAbrvLegacyTable = new List<StateAlias>(new StateAlias[] {
         new StateAlias() { Id = 1,  ForeignId = 15, AliasName = "ARIZ" },
         new StateAlias() { Id = 2,  ForeignId = 17, AliasName = "ARK" },
         new StateAlias() { Id = 3,  ForeignId = 19, AliasName = "CAL" },
@@ -622,7 +622,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new StateAlias() { Id = 31,  ForeignId = 65, AliasName = "WYO" }
     });
 
-   private readonly List<CountryAlias> CountryAliasTable = new List<CountryAlias>(new CountryAlias[] {
+      private readonly List<CountryAlias> CountryAliasTable = new List<CountryAlias>(new CountryAlias[] {
         new CountryAlias() { Id = 1, AliasName = "A.D.", ForeignId = 1 },
         new CountryAlias() { Id = 2, AliasName = "A.E.", ForeignId = 2 },
         new CountryAlias() { Id = 3, AliasName = "A.F.", ForeignId = 3 },
@@ -876,7 +876,7 @@ public sealed class MasterCodeSet : IMasterCodeSet
         new CountryAlias() { Id = 252, AliasName = "USSR", ForeignId = 202 }
     });
 
-   private readonly List<CountryCode> CountryTable = new List<CountryCode>(new CountryCode[] {
+      private readonly List<CountryCode> CountryTable = new List<CountryCode>(new CountryCode[] {
         new CountryCode() { Id = 1, Code = "AD", Description = "Andorra" },
         new CountryCode() { Id = 2, Code = "AE", Description = "United Arab Emirates" },
         new CountryCode() { Id = 3, Code = "AF", Description = "Afghanistan" },
@@ -1123,5 +1123,6 @@ public sealed class MasterCodeSet : IMasterCodeSet
     });
 
 
-}
+   }
 
+}

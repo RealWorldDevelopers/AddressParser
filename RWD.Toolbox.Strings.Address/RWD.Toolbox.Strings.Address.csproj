@@ -1,11 +1,51 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
+   <PropertyGroup>
+      <TargetFramework>netcoreapp3.1</TargetFramework>
+      <Authors>RealWorldDevelopers</Authors>
+      <Description>A Free .NET Core Class Library for Parsing an Address String into individual components.</Description>
+      <Copyright>RealWorldDevelopers 2021</Copyright>
+      <PackageProjectUrl>https://www.realworlddevelopers.com</PackageProjectUrl>
+      <RepositoryUrl>https://github.com/RealWorldDevelopers/RWD.Toolbox.AddressParser</RepositoryUrl>
+      <RepositoryType>GIT</RepositoryType>
+      <PackageTags>Address Parse RealWorldDevelopers .NET Core</PackageTags>
+      <PackageReleaseNotes>Initial NuGet Release - Updated nuspec file</PackageReleaseNotes>
+      <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+      <IncludeSymbols>true</IncludeSymbols>
+      <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+      <PackageLicenseFile>eula.md</PackageLicenseFile>
+      <PackageIcon>RWDevs-NuGet.jpg</PackageIcon>
+      <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      <FileVersion>1.0.0.0</FileVersion>
+      <Version>1.0.1</Version>
+   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RWD.Toolbox.Strings.Address.Common\RWD.Toolbox.Strings.Address.Common.csproj" />
-  </ItemGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <DocumentationFile>E:\Source\RWD.Toolbox.AddressParser\RWD.Toolbox.Strings.Address\RWD.Toolbox.Strings.Address.xml</DocumentationFile>
+   </PropertyGroup>
+
+   <ItemGroup>
+     <None Remove="RWDevs-NuGet.jpg" />
+     <None Include="RWDevs-NuGet.jpg">
+       <Pack>True</Pack>
+       <PackagePath></PackagePath>
+     </None>
+   </ItemGroup>
+
+   <ItemGroup>
+     <Content Include="eula.md">
+       <Pack>True</Pack>
+       <PackagePath></PackagePath>
+     </Content>
+     <Content Include="RWDevs-NuGet.jpg">
+       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+     </Content>
+   </ItemGroup>
+
+   <ItemGroup>
+     <Compile Update="Formatter.cs">
+       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+     </Compile>
+   </ItemGroup>  
 
 </Project>

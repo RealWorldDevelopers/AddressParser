@@ -1,7 +1,6 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RWD.Toolbox.Strings.Address.Common.DTO;
-
+using RWD.Toolbox.Strings.Address.Models;
 
 namespace RWD.Toolbox.Strings.Address.Test
 {

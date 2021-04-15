@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RWD.Toolbox.Strings.Address", "RWD.Toolbox.Strings.Address\RWD.Toolbox.Strings.Address.csproj", "{FCF997A8-8B03-4980-AEEC-519DD496B531}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RWD.Toolbox.Strings.Address.Common", "RWD.Toolbox.Strings.Address.Common\RWD.Toolbox.Strings.Address.Common.csproj", "{D3571ABC-432E-45BA-A1AA-CD21F4A121D2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RWD.Toolbox.Strings.Address.Test", "RWD.Toolbox.Strings.Address.Test\RWD.Toolbox.Strings.Address.Test.csproj", "{C47F8148-6E40-406F-A98D-6E780C2C6774}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RWD.Toolbox.Strings.Address.Demo", "RWD.Toolbox.String.Address.Demo\RWD.Toolbox.Strings.Address.Demo.csproj", "{5F8A63C8-5AAC-4515-9551-D0114DF3AD5F}"
@@ -21,10 +19,6 @@ Global
 		{FCF997A8-8B03-4980-AEEC-519DD496B531}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCF997A8-8B03-4980-AEEC-519DD496B531}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCF997A8-8B03-4980-AEEC-519DD496B531}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D3571ABC-432E-45BA-A1AA-CD21F4A121D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3571ABC-432E-45BA-A1AA-CD21F4A121D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3571ABC-432E-45BA-A1AA-CD21F4A121D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3571ABC-432E-45BA-A1AA-CD21F4A121D2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C47F8148-6E40-406F-A98D-6E780C2C6774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C47F8148-6E40-406F-A98D-6E780C2C6774}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C47F8148-6E40-406F-A98D-6E780C2C6774}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -38,13 +32,13 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_UpdateFileVersion = False
-		BuildVersion_StartDate = 2000/1/1
-		BuildVersion_AssemblyInfoFilename = SharedAssemblyInfo.vb
-		BuildVersion_BuildVersioningStyle = None.None.Increment.Increment
-		BuildVersion_DetectChanges = False
-		BuildVersion_UseGlobalSettings = False
-		BuildVersion_UpdateAssemblyVersion = False
 		SolutionGuid = {6DCCFD79-4DA6-43B6-9624-ACD492600E1B}
+		BuildVersion_UpdateAssemblyVersion = False
+		BuildVersion_UseGlobalSettings = False
+		BuildVersion_DetectChanges = False
+		BuildVersion_BuildVersioningStyle = None.None.Increment.Increment
+		BuildVersion_AssemblyInfoFilename = SharedAssemblyInfo.vb
+		BuildVersion_StartDate = 2000/1/1
+		BuildVersion_UpdateFileVersion = False
 	EndGlobalSection
 EndGlobal

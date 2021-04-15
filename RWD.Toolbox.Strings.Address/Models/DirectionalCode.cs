@@ -1,5 +1,4 @@
-﻿
-namespace RWD.Toolbox.Strings.Address.Common.DTO
+﻿namespace RWD.Toolbox.Strings.Address.Models
 {
    /// <summary>
    /// Entity DTO for Postal Directions (ie N, E, S, W)
@@ -10,6 +9,6 @@ namespace RWD.Toolbox.Strings.Address.Common.DTO
    /// <summary>
    /// An entity DTO for Terms Commonly Used for Postal Directions
    /// </summary>
-   public class DirectionalAlias : BaseAlias   { }
+   public class DirectionalAlias : BaseAlias { }
 
 }

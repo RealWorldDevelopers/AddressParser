@@ -1,4 +1,5 @@
 ﻿
+using RWD.Toolbox.Strings.Address.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -14,8 +15,8 @@ namespace RWD.Toolbox.Strings.Address
       /// Parse a string value into an Address
       /// </summary>
       /// <param name="value">Address as a single line <see cref="string"/></param>
-      /// <returns><see cref="Common.DTO.Address"/></returns>
-      Common.DTO.Address Parse(string value);
+      /// <returns><see cref="Models.Address"/></returns>
+      Models.Address Parse(string value);
 
       /// <summary>
       /// Use RegEx Option in compiled mode
@@ -27,10 +28,12 @@ namespace RWD.Toolbox.Strings.Address
       bool UseCompiled { get; set; }
    }
 
+   
+   /// <inheritdoc/>
    public class Parser : IParser
    {
       private readonly IRegExHelper _regExHelper;
-      private readonly Common.DTO.IMasterCodeSet _masterCodeSet;
+      private readonly IMasterCodeSet _masterCodeSet;
       private Regex _addressRegex_Compiled;
 
       /// <inheritdoc/>
@@ -39,7 +42,7 @@ namespace RWD.Toolbox.Strings.Address
       /// <summary>
       /// Constructor 
       /// </summary>
-      public Parser(IRegExHelper regExHelper, Common.DTO.IMasterCodeSet masterCodeSet)
+      public Parser(IRegExHelper regExHelper, IMasterCodeSet masterCodeSet)
       {
          _regExHelper = regExHelper;
          _masterCodeSet = masterCodeSet;
@@ -48,9 +51,9 @@ namespace RWD.Toolbox.Strings.Address
          
 
       /// <inheritdoc/>
-      public Common.DTO.Address Parse(string value)
+      public Models.Address Parse(string value)
       {
-         var newAddress = new Common.DTO.Address();
+         var newAddress = new Models.Address();
 
          if (!string.IsNullOrWhiteSpace(value))
          {
@@ -155,7 +158,7 @@ namespace RWD.Toolbox.Strings.Address
          return result;
       }
 
-      private string GetCodeAsNormalizedValue(IEnumerable<Common.DTO.ICode> codes, IEnumerable<Common.DTO.ICodeAlias> aliases, string value)
+      private string GetCodeAsNormalizedValue(IEnumerable<ICode> codes, IEnumerable<ICodeAlias> aliases, string value)
       {
          string result = value;
          var codeDto = codes.FirstOrDefault(x => string.Compare(x.Description, value, true) == 0);
@@ -179,7 +182,7 @@ namespace RWD.Toolbox.Strings.Address
          return result;
       }
 
-      private string GetDescriptionAsNormalizedValue(IEnumerable<Common.DTO.ICode> codes, IEnumerable<Common.DTO.ICodeAlias> aliases, string value)
+      private string GetDescriptionAsNormalizedValue(IEnumerable<ICode> codes, IEnumerable<ICodeAlias> aliases, string value)
       {
          string result = value;
          var codeDto = codes.FirstOrDefault(x => string.Compare(x.Code, value, true) == 0);
