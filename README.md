@@ -1,6 +1,18 @@
-# AddressParser
+RWD.Toolbox.Strings.Address
+================
+A .NET Core Class Library for Parsing an Adress String into individual components.
 
-A String Parsing and Transformation Tool for Postal Addresses
+[Real World Developers](https://www.realworlddevelopers.com)
+-----------------------
 
-For detailed documentation download AddressParser.chm from:
-https://github.com/RealWorldDevelopers/AddressParser/tree/master/RWD.Toolbox.AddressParser.Documentation/Help
+[Documentation](https://realworlddevelopers.github.io/RWD.Toolbox.AddressParser/)
+-----------------------
+
+[Nuget Package](https://www.nuget.org/packages/RWD.Toolbox.Strings.Address/)
+---------------
+
+### Quick Start Notes
+* #### v1.0.0.0  
+	* Initial Release
+	* .Net Core
+
